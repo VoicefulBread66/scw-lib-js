@@ -16,4 +16,4 @@ Countdown
 Hex16
 - Generates a random 16-digit hexadecimal code
 # copyright
-This is copyrighted by Samuel Craig Wu, 2019. Any use of this must include credit to the rightful owner.
+This is copyrighted by VoicefulBread66, 2019. Any use of this must include credit to the rightful owner.
