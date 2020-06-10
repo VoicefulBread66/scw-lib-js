@@ -1,5 +1,5 @@
 # Release
-The latest release is v3.1.0
+The latest release version of scw.lib.js is v3.1.0
 # How to add scw.lib.js to your HTML file
 If you want to use a hosted version from the web, paste the following code into your ```<head>``` tag:
 ```<script src="https://scwco.cf/scripts/scw.lib.min.js"></script>```
