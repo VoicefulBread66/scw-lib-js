@@ -22,5 +22,5 @@ countdown("A")
 </body>
 </html>
 ```
-# creator
+# Creator
 This has been developed by VoicefulBread66 since 2019.
