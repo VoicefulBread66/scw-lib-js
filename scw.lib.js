@@ -1,14 +1,8 @@
 /*
-scw.lib.js v3.1.0 stable
-What has changed since v2.0.0?
-- Added pswgen(a). It is a password generator which would generate a random password with 2 special characters, 2 numbers and 12 letters, for a total of 16 characters.
-- Changed default times on countdowns to 1 Jan, 2021
-- Added time2dec (a, b) for being able to convert current time to decimal time
-- Added time2dec_c(a, b, c) for being able to choose a set time for the function. Note: It does not work without a set time. If you want to use current time instead, try time2dec(a, b)
-- Added countdown_sec(a, b, c, d) for those who want countdowns in seconds
-- Added cdww (a, b, c, d) for those who want their countdowns displayed without displaying how many weeks
-- Added hex64_16 (a) which generates a random 16 character long 64-bit code.
-- Added timebtw (a, b, c, d, e) for those who just want a set time between two different times.
+scw.lib.js v3.2.0 stable
+Changes from v3.1.0
+- Added gen_no(a, b, c) for a random number generator
+- Changed all Math.floor() in random code/password generators to Math.round() for better randomization
 
 Copyright VoicefulBread66, 2019-2020
 */
@@ -404,22 +398,22 @@ function hex16(a) {
       //Defines variable 'hd' as an array with the possible values of a hexadecimal 'number'
       var hd = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
       //Variable definition of hexadecimal 'numbers'
-      var hn1 = Math.floor(Math.random() * 16);
-      var hn2 = Math.floor(Math.random() * 16);
-      var hn3 = Math.floor(Math.random() * 16);
-      var hn4 = Math.floor(Math.random() * 16);
-      var hn5 = Math.floor(Math.random() * 16);
-      var hn6 = Math.floor(Math.random() * 16);
-      var hn7 = Math.floor(Math.random() * 16);
-      var hn8 = Math.floor(Math.random() * 16);
-      var hn9 = Math.floor(Math.random() * 16);
-      var hn10 = Math.floor(Math.random() * 16);
-      var hn11 = Math.floor(Math.random() * 16);
-      var hn12 = Math.floor(Math.random() * 16);
-      var hn13 = Math.floor(Math.random() * 16);
-      var hn14 = Math.floor(Math.random() * 16);
-      var hn15 = Math.floor(Math.random() * 16);
-      var hn16 = Math.floor(Math.random() * 16);
+      var hn1 = Math.round(Math.random() * 16);
+      var hn2 = Math.round(Math.random() * 16);
+      var hn3 = Math.round(Math.random() * 16);
+      var hn4 = Math.round(Math.random() * 16);
+      var hn5 = Math.round(Math.random() * 16);
+      var hn6 = Math.round(Math.random() * 16);
+      var hn7 = Math.round(Math.random() * 16);
+      var hn8 = Math.round(Math.random() * 16);
+      var hn9 = Math.round(Math.random() * 16);
+      var hn10 = Math.round(Math.random() * 16);
+      var hn11 = Math.round(Math.random() * 16);
+      var hn12 = Math.round(Math.random() * 16);
+      var hn13 = Math.round(Math.random() * 16);
+      var hn14 = Math.round(Math.random() * 16);
+      var hn15 = Math.round(Math.random() * 16);
+      var hn16 = Math.round(Math.random() * 16);
       //Puts 16 hexademical 'numbers' as a string into HTML
       document.getElementById(a).innerHTML = hd[hn1] + hd[hn2] + hd[hn3] + hd[hn4] + hd[hn5] + hd[hn6] + hd[hn7] + hd[hn8] + hd[hn9] + hd[hn10] + hd[hn11] + hd[hn12] + hd[hn13] + hd[hn14] + hd[hn15] + hd[hn16];
     }
@@ -437,22 +431,22 @@ function hex64_16(a) {
       //Defines variable 'hd' as an array with the possible values of a hexadecimal 'number'
       var hd = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "$", "."];
       //Variable definition of hexadecimal 'numbers'
-      var hn1 = Math.floor(Math.random() * 64);
-      var hn2 = Math.floor(Math.random() * 64);
-      var hn3 = Math.floor(Math.random() * 64);
-      var hn4 = Math.floor(Math.random() * 64);
-      var hn5 = Math.floor(Math.random() * 64);
-      var hn6 = Math.floor(Math.random() * 64);
-      var hn7 = Math.floor(Math.random() * 64);
-      var hn8 = Math.floor(Math.random() * 64);
-      var hn9 = Math.floor(Math.random() * 64);
-      var hn10 = Math.floor(Math.random() * 64);
-      var hn11 = Math.floor(Math.random() * 64);
-      var hn12 = Math.floor(Math.random() * 64);
-      var hn13 = Math.floor(Math.random() * 64);
-      var hn14 = Math.floor(Math.random() * 64);
-      var hn15 = Math.floor(Math.random() * 64);
-      var hn16 = Math.floor(Math.random() * 64);
+      var hn1 = Math.round(Math.random() * 64);
+      var hn2 = Math.round(Math.random() * 64);
+      var hn3 = Math.round(Math.random() * 64);
+      var hn4 = Math.round(Math.random() * 64);
+      var hn5 = Math.round(Math.random() * 64);
+      var hn6 = Math.round(Math.random() * 64);
+      var hn7 = Math.round(Math.random() * 64);
+      var hn8 = Math.round(Math.random() * 64);
+      var hn9 = Math.round(Math.random() * 64);
+      var hn10 = Math.round(Math.random() * 64);
+      var hn11 = Math.round(Math.random() * 64);
+      var hn12 = Math.round(Math.random() * 64);
+      var hn13 = Math.round(Math.random() * 64);
+      var hn14 = Math.round(Math.random() * 64);
+      var hn15 = Math.round(Math.random() * 64);
+      var hn16 = Math.round(Math.random() * 64);
       //Puts 16 hexademical 'numbers' as a string into HTML
       document.getElementById(a).innerHTML = hd[hn1] + hd[hn2] + hd[hn3] + hd[hn4] + hd[hn5] + hd[hn6] + hd[hn7] + hd[hn8] + hd[hn9] + hd[hn10] + hd[hn11] + hd[hn12] + hd[hn13] + hd[hn14] + hd[hn15] + hd[hn16];
     }
@@ -569,26 +563,41 @@ function pswgen(a) {
 		return "You did not specify an element id for the program";
 	} else {
 		var no = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-		var n1 = Math.floor(Math.random() * 10);
-		var n2 = Math.floor(Math.random() * 10);
+		var n1 = Math.round(Math.random() * 10);
+		var n2 = Math.round(Math.random() * 10);
 		var sp = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
-		var s1 = Math.floor(Math.random() * 10);
-		var s2 = Math.floor(Math.random() * 10);
+		var s1 = Math.round(Math.random() * 10);
+		var s2 = Math.round(Math.random() * 10);
 		var al = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-		var a1 = Math.floor(Math.random() * 52);
-		var a2 = Math.floor(Math.random() * 52);
-		var a3 = Math.floor(Math.random() * 52);
-		var a4 = Math.floor(Math.random() * 52);
-		var a5 = Math.floor(Math.random() * 52);
-		var a6 = Math.floor(Math.random() * 52);
-		var a7 = Math.floor(Math.random() * 52);
-		var a8 = Math.floor(Math.random() * 52);
-		var a9 = Math.floor(Math.random() * 52);
-		var a10 = Math.floor(Math.random() * 52);
-		var a11 = Math.floor(Math.random() * 52);
-		var a12 = Math.floor(Math.random() * 52);
+		var a1 = Math.round(Math.random() * 52);
+		var a2 = Math.round(Math.random() * 52);
+		var a3 = Math.round(Math.random() * 52);
+		var a4 = Math.round(Math.random() * 52);
+		var a5 = Math.round(Math.random() * 52);
+		var a6 = Math.round(Math.random() * 52);
+		var a7 = Math.round(Math.random() * 52);
+		var a8 = Math.round(Math.random() * 52);
+		var a9 = Math.round(Math.random() * 52);
+		var a10 = Math.round(Math.random() * 52);
+		var a11 = Math.round(Math.random() * 52);
+		var a12 = Math.round(Math.random() * 52);
 		//Inserts password into HTML
 		document.getElementById(a).innerHTML = al[a1] + al[a2] + no[n1] + al[a3] + sp[s1] + al[a4] + al[a5] + al[a6] + no[n2] + al[a7] + al[a8] + sp[s2] + al[a9] + al[a10] + al[a11] + al[a12];
 	}
 	}
 }, 100)}
+function gen_no(a, b = 0, c = 1000) {
+	let stateCheck = setInterval(() => {
+  if (document.readyState === 'complete') {
+		clearInterval(stateCheck);
+		if (a === undefined) {
+			return "You did not specify an element id for the program"
+		} else {
+			if (c > b) {
+				document.getElementById(a).innerHTML = Math.round(Math.random() * (c - b)) + b
+			} else {
+				return "Error: The max in the random number generator is more than the min."
+			}
+		}
+	}}, 100)
+}
