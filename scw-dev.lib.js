@@ -1,5 +1,5 @@
 /*
-scw.lib.js v4.0.0-beta.1
+scw.lib.js v3.3.0-beta.1
 Copyright VoicefulBread66, 2019-2020
 */
 function countdown (a, b, c = "dt", d = "n", e = "w") {
