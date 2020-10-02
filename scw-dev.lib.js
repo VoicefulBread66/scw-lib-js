@@ -1,5 +1,5 @@
 /*
-scw.lib.js v3.3.0-beta.2
+scw.lib.js v3.3.0-beta.3
 Copyright VoicefulBread66, 2019-2020
 */
 function countdown (a, b, c = "dt", d = "n", e = "w") {
@@ -325,12 +325,12 @@ function hex64_16(a) {
 function pswgen(a) {
   generate(a, "psw")
 }
-function time2dec(a, b) {
-  var c;
+function time2dec(a, b, c) {
   if (a === undefined) {
     //Stops program if no element id provided
     return console.log("You did not specify an element id for the program");
   } else {
+    var d,e;
     if (b === undefined) {
       //Defines b if no value provided in parameter
       b = new Date().getTimezoneOffset() * -1 * 60 * 1000;
@@ -344,23 +344,23 @@ function time2dec(a, b) {
     var func = function () {
       if (c === undefined) {
         //Defines c if no value provided in parameter
-        c = new Date().getTime();
+        e = new Date().getTime();
       } else {
         //Defines c if value provided in parameter
-        c = new Date(c).getTime();
+        e = new Date(c).getTime();
       }
       //Variable for new Date() function
       if (c === undefined) {
-        var d = new Date();
+        d = new Date();
       } else {
-        var d = new Date(c);
+        d = new Date(c);
       }
       //Locale Date String to get [DD: Int.toString()] [MMM: string] [YYYY: Int.toString()]
       var dd = d.toLocaleDateString("en-SG", {year: "numeric", "month": "short", "day": "numeric"});
       //Calculation of amount of time (days) minus hours, minutes, seconds
-      var date = Math.floor(c / (864 * 100 * 100 * 10)) * 864 * 100 * 100 * 10;
+      var date = Math.floor(e / (864 * 100 * 100 * 10)) * 864 * 100 * 100 * 10;
       //Time since day start
-      var tsds = new Date().getTime(c) - date + b;
+      var tsds = e - date + b;
       //Calculations
       var h = Math.floor(tsds / (864 * 100 * 100));
       var ht = h * 864 * 100 * 100;
@@ -376,55 +376,7 @@ function time2dec(a, b) {
   }
 }
 function time2dec_c(a, b, c) {
-  if (a === undefined) {
-    //Stops program if no element id provided
-    return console.log("You did not specify an element id for the program");
-  } else {
-    if (b === undefined) {
-      //Defines b if no value provided in parameter
-      b = new Date().getTimezoneOffset() * -1 * 60 * 1000;
-    } else if (b === "default") {
-      //Defines b if b parameter is "default"
-      b = new Date().getTimezoneOffset() * -1 * 60 * 1000;
-    } else {
-      //Defines b if b parameter is not "default"
-      b = b * 60 * 60 * 1000;
-    }
-      if (c === undefined) {
-        //Defines c if no value provided in parameter
-        c = new Date().getTime();
-      } else {
-        //Defines c if value provided in parameter
-        c = new Date(c).getTime()
-      }
-      //Variable for new Date() function
-      if (c === undefined) {
-        var d = new Date();
-      } else {
-        var d = new Date(c);
-      }
-      //Locale Date String to get [DD: Int.toString()] [MMM: string] [YYYY: Int.toString()]
-      var dd = d.toLocaleDateString("en-SG", {year: "numeric", "month": "short", "day": "numeric"});
-      //Calculation of amount of time (days) minus hours, minutes, seconds
-      var date = Math.floor(c / (864 * 100 * 100 * 10)) * 864 * 100 * 100 * 10;
-      //Time since day start
-      var tsds = c - date + b;
-      //Calculations
-      var h = Math.floor(tsds / (864 * 100 * 100));
-      var ht = h * 864 * 100 * 100;
-      var th = tsds - ht;
-      var m = Math.floor(th / (864 * 100));
-      var mt = m * 864 * 100;
-      var thm = th - mt;
-      var s = Math.floor(thm / 864);
-      //Puts text into HTML
-      let stateCheck = setInterval(() => {
-        if (document.readyState === 'complete') {
-        clearInterval(stateCheck);
-        document.getElementById(a).innerHTML = dd + " " + h + ":" + m + ":" + s;
-        }
-      }, 100);
-	}
+  time2dec(a, b, c);
 }
 function gen_no(a, b = 0, c = 1000) {
 	let stateCheck = setInterval(() => {
