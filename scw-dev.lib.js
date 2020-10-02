@@ -1,5 +1,10 @@
 /*
 scw.lib.js v3.3.0-beta.3
+
+Changes from v3.3.0-beta.2:
+- File size reduced by 9.9kb, from 99.9kb to 99.9kb
+- time2dec_c(a, b, c) merged into time2dec(a, b) which is now time2dec_c(a, b, c). Backwards compatibility is retained, and functionality of 'c' variable is same as that in time2dec_c(a, b, c)
+
 Copyright VoicefulBread66, 2019-2020
 */
 function countdown (a, b, c = "dt", d = "n", e = "w") {
