@@ -1,5 +1,5 @@
 /*
-scw.lib.js v3.3.0-beta.1
+scw.lib.js v3.3.0-beta.2
 Copyright VoicefulBread66, 2019-2020
 */
 function countdown (a, b, c = "dt", d = "n", e = "w") {
@@ -266,71 +266,64 @@ function timebtw (a, b, c, d = "uf", e = "n") {
         }
     }}, 100)
 }
-function hex16(a) {
+function generate (a, b) {
   let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(stateCheck);
     if (a === undefined) {
-      //If no element id, stop program
-      return console.log("You did not specify an element id for the program");
+      // Stops program if element id not specified
+      return "You did not specify an id for the program"
     } else {
-      //Defines variable 'hd' as an array with the possible values of a hexadecimal 'number'
-      var hd = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
-      //Variable definition of hexadecimal 'numbers'
-      var hn1 = Math.floor(Math.random() * 16);
-      var hn2 = Math.floor(Math.random() * 16);
-      var hn3 = Math.floor(Math.random() * 16);
-      var hn4 = Math.floor(Math.random() * 16);
-      var hn5 = Math.floor(Math.random() * 16);
-      var hn6 = Math.floor(Math.random() * 16);
-      var hn7 = Math.floor(Math.random() * 16);
-      var hn8 = Math.floor(Math.random() * 16);
-      var hn9 = Math.floor(Math.random() * 16);
-      var hn10 = Math.floor(Math.random() * 16);
-      var hn11 = Math.floor(Math.random() * 16);
-      var hn12 = Math.floor(Math.random() * 16);
-      var hn13 = Math.floor(Math.random() * 16);
-      var hn14 = Math.floor(Math.random() * 16);
-      var hn15 = Math.floor(Math.random() * 16);
-      var hn16 = Math.floor(Math.random() * 16);
-      //Puts 16 hexademical 'numbers' as a string into HTML
-      document.getElementById(a).innerHTML = hd[hn1] + hd[hn2] + hd[hn3] + hd[hn4] + hd[hn5] + hd[hn6] + hd[hn7] + hd[hn8] + hd[hn9] + hd[hn10] + hd[hn11] + hd[hn12] + hd[hn13] + hd[hn14] + hd[hn15] + hd[hn16];
+      //Defining variables
+      var a1, a2, a3, b1, b2, b3, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16;
+      //Defines arrays and number to multiply by
+      if (b === "64_16") {
+        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "$", "."];
+        a2 = a1;
+        a3 = a1;
+        b1 = 64;
+        b2 = b1;
+      } else if (b === "psw") {
+        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        a2 = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
+        a3 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        b1 = 10;
+        b2 = 52;
+      } else {
+        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+        a2 = a1;
+        a3 = a1;
+        b1 = 16;
+        b2 = b1;
+      }
+      c1 = Math.floor(Math.random() * b2);
+      c2 = Math.floor(Math.random() * b2);
+      c3 = Math.floor(Math.random() * b1);
+      c4 = Math.floor(Math.random() * b2);
+      c5 = Math.floor(Math.random() * b1);
+      c6 = Math.floor(Math.random() * b2);
+      c7 = Math.floor(Math.random() * b2);
+      c8 = Math.floor(Math.random() * b2);
+      c9 = Math.floor(Math.random() * b1);
+      c10 = Math.floor(Math.random() * b2);
+      c11 = Math.floor(Math.random() * b2);
+      c12 = Math.floor(Math.random() * b1);
+      c13 = Math.floor(Math.random() * b2);
+      c14 = Math.floor(Math.random() * b2);
+      c15 = Math.floor(Math.random() * b2);
+      c16 = Math.floor(Math.random() * b2);
+      document.getElementById(a).innerHTML = a3[c1] + a3[c2] + a1[c3] + a3[c4] + a2[c5] + a3[c6] + a3[c7] + a3[c8] + a1[c9] + a3[c10] + a3[c11] + a2[c12] + a3[c13] + a3[c14] + a3[c15] + a3[c16];
     }
-    }
-  }, 100);
+}}, 100)}
+//To retain backwards compatibility
+function hex16(a) {
+  generate(a)
 }
 function hex64_16(a) {
-  let stateCheck = setInterval(() => {
-  if (document.readyState === 'complete') {
-    clearInterval(stateCheck);
-    if (a === undefined) {
-      //If no element id, stop program
-      return console.log("You did not specify an element id for the program");
-    } else {
-      //Defines variable 'hd' as an array with the possible values of a hexadecimal 'number'
-      var hd = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "$", "."];
-      //Variable definition of hexadecimal 'numbers'
-      var hn1 = Math.floor(Math.random() * 64);
-      var hn2 = Math.floor(Math.random() * 64);
-      var hn3 = Math.floor(Math.random() * 64);
-      var hn4 = Math.floor(Math.random() * 64);
-      var hn5 = Math.floor(Math.random() * 64);
-      var hn6 = Math.floor(Math.random() * 64);
-      var hn7 = Math.floor(Math.random() * 64);
-      var hn8 = Math.floor(Math.random() * 64);
-      var hn9 = Math.floor(Math.random() * 64);
-      var hn10 = Math.floor(Math.random() * 64);
-      var hn11 = Math.floor(Math.random() * 64);
-      var hn12 = Math.floor(Math.random() * 64);
-      var hn13 = Math.floor(Math.random() * 64);
-      var hn14 = Math.floor(Math.random() * 64);
-      var hn15 = Math.floor(Math.random() * 64);
-      var hn16 = Math.floor(Math.random() * 64);
-      //Puts 16 hexademical 'numbers' as a string into HTML
-      document.getElementById(a).innerHTML = hd[hn1] + hd[hn2] + hd[hn3] + hd[hn4] + hd[hn5] + hd[hn6] + hd[hn7] + hd[hn8] + hd[hn9] + hd[hn10] + hd[hn11] + hd[hn12] + hd[hn13] + hd[hn14] + hd[hn15] + hd[hn16];
-    }
-    }
-  }, 100);
+  generate(a, "64_16")
+}
+function pswgen(a) {
+  generate(a, "psw")
 }
 function time2dec(a, b) {
   var c;
@@ -433,38 +426,6 @@ function time2dec_c(a, b, c) {
       }, 100);
 	}
 }
-function pswgen(a) {
-	let stateCheck = setInterval(() => {
-  if (document.readyState === 'complete') {
-    clearInterval(stateCheck);
-	//Stops the program if element id is not specified
-	if (a === undefined) {
-		return "You did not specify an element id for the program";
-	} else {
-		var no = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-		var n1 = Math.floor(Math.random() * 10);
-		var n2 = Math.floor(Math.random() * 10);
-		var sp = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
-		var s1 = Math.floor(Math.random() * 10);
-		var s2 = Math.floor(Math.random() * 10);
-		var al = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-		var a1 = Math.floor(Math.random() * 52);
-		var a2 = Math.floor(Math.random() * 52);
-		var a3 = Math.floor(Math.random() * 52);
-		var a4 = Math.floor(Math.random() * 52);
-		var a5 = Math.floor(Math.random() * 52);
-		var a6 = Math.floor(Math.random() * 52);
-		var a7 = Math.floor(Math.random() * 52);
-		var a8 = Math.floor(Math.random() * 52);
-		var a9 = Math.floor(Math.random() * 52);
-		var a10 = Math.floor(Math.random() * 52);
-		var a11 = Math.floor(Math.random() * 52);
-		var a12 = Math.floor(Math.random() * 52);
-		//Inserts password into HTML
-		document.getElementById(a).innerHTML = al[a1] + al[a2] + no[n1] + al[a3] + sp[s1] + al[a4] + al[a5] + al[a6] + no[n2] + al[a7] + al[a8] + sp[s2] + al[a9] + al[a10] + al[a11] + al[a12];
-	}
-	}
-}, 100)}
 function gen_no(a, b = 0, c = 1000) {
 	let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
