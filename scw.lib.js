@@ -79,7 +79,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
                 doe = "The time this countdown is counting down to has come";
                 clearInterval(norm, 1000);
               }
-             } else{
+             } else {
                doe = f
              }
            }
