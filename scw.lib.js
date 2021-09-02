@@ -1,13 +1,13 @@
-/*scw.lib.js v3.3.0
-Copyright VoicefulBread66, 2019-2020*/
-function countdown (a, b, c = "dt", d = "n", e = "w") {
+/*scw.lib.js v3.4.0
+Copyright VoicefulBread66, 2019-2021*/
+function countdown (a, b, c = "dt", d = "n", e = "w", f) {
     if (a === undefined) {
       //If no element id, stop program
         return console.log("You did not specify an element id for the program.");
     } else {
         if (b === undefined) {
           //Defines variable b with default value if user didnt put in input
-            b = new Date("2021-01-01T00:00:00Z").getTime() + new Date().getTimezoneOffset() * 60000;
+            b = new Date("2022-01-01T00:00:00Z").getTime() + new Date().getTimezoneOffset() * 60000;
         } else {
           //if user puts in input, converts it to miliseconds
             b = new Date(b).getTime() + new Date().getTimezoneOffset() * 60000;
@@ -27,39 +27,44 @@ function countdown (a, b, c = "dt", d = "n", e = "w") {
           //Calculations, based on what is specified in 'e'
           if (e === "s") {
             s = Math.floor(diff / 1000);
-          }
-          else if (e === "d") {
+          } else if (e === "m") {
+            m = Math.floor(diff/ (1000 * 60));
+            mt = diff % (1000 * 60)
+            s = Math.floor(mt / 1000);
+          } else if (e === "h") {
+            h = Math.floor(diff / (1000 * 60 * 60));
+            ht = diff % (1000 * 60 * 60);
+            m = Math.floor(ht / (1000 * 60));
+            mt = ht % (1000 * 60)
+            s = Math.floor(mt / 1000);
+          } else if (e === "d") {
             d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            dt = d * 1000 * 60 * 60 * 24;
-            dddt = diff - dt;
-            h = Math.floor(dddt / (1000 * 60 * 60));
-            ht = h * 1000 * 60 * 60;
-            dddtht = dddt - ht;
-            m = Math.floor(dddtht / (1000 * 60));
-            mt = m * 1000 * 60;
-            dddthtmt = dddtht - mt;
-            s = Math.floor(dddthtmt / 1000);
-          }
-          else {
+            dt = diff % (1000 * 60 * 60 * 24);
+            h = Math.floor(dt / (1000 * 60 * 60));
+            ht = dt % (1000 * 60 * 60);
+            m = Math.floor(ht / (1000 * 60));
+            mt = ht % (1000 * 60);
+            s = Math.floor(mt / 1000);
+          } else {
            w = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-           wt = w * 1000 * 60 * 60 * 24 * 7;
-           dwt = diff - wt;
-           d = Math.floor(dwt / (1000 * 60 * 60 * 24));
-           dt = d * 1000 * 60 * 60 * 24;
-           dddt = dwt - dt;
-           h = Math.floor(dddt / (1000 * 60 * 60));
-           ht = h * 1000 * 60 * 60;
-           dddtht = dddt - ht;
-           m = Math.floor(dddtht / (1000 * 60));
-           mt = m * 1000 * 60;
-           dddthtmt = dddtht - mt;
-           s = Math.floor(dddthtmt / 1000);
+           wt = diff % (1000 * 60 * 60 * 24 * 7);
+           d = Math.floor(wt / (1000 * 60 * 60 * 24));
+           dt = wt % (1000 * 60 * 60 * 24);
+           h = Math.floor(dt / (1000 * 60 * 60));
+           ht = dt % (1000 * 60 * 60);
+           m = Math.floor(ht / (1000 * 60));
+           mt = ht % (1000 * 60);
+           s = Math.floor(mt / 1000);
           }
            //Checks if difference is greater than or equal to 0ms
            if (diff >= 0) {
              //Message based on mode defined in 'e'
              if (e === "s" ) {
                doe = s + "s"
+             } else if (e === "m") {
+               doe = m + "m " + s + "s";
+             } else if (e === "h") {
+               doe = h + "h " + m + "m " + s + "s";
              } else if (e === "d") {
                doe = d + "d " + h + "h " + m + "m " + s + "s";
              } else {
@@ -91,39 +96,44 @@ function countdown (a, b, c = "dt", d = "n", e = "w") {
           //Calculations, based on what is specified in 'e'
           if (e === "s") {
             ms = Math.floor(mdiff / 864);
-          }
-          else if (e === "d") {
+          } else if (e === "m") {
+            mm = Math.floor(mdiff / (864 * 100));
+            mmt = mdiff % (864 * 100);
+            ms = Math.floor(mmt / 864);
+          } else if (e === "h") {
+            mh = Math.floor(mdiff / (864 * 100 * 100));
+            mht = mdiff % (864 * 100 * 100);
+            mm = Math.floor(mht / (864 * 100));
+            mmt = mht % (864 * 100);
+            ms = Math.floor(mmt / 864);
+          } else if (e === "d") {
             md = Math.floor(mdiff / (1000 * 60 * 60 * 24));
-            mdt = md * 1000 * 60 * 60 * 24;
-            mdddt = mdiff - mdt;
-            mh = Math.floor(mdddt / (864 * 100 * 100));
-            mht = mh * 864 * 100 * 100;
-            mdddtht = mdddt - mht;
-            mm = Math.floor(mdddtht / (864 * 100));
-            mmt = mm * 864 * 100;
-            mdddthtmt = mdddtht - mmt;
-            ms = Math.floor(mdddthtmt / 864);
-          }
-          else {
+            mdt = mdiff % (1000 * 60 * 60 * 24);
+            mh = Math.floor(mdt / (864 * 100 * 100));
+            mht = mdt % (864 * 100 * 100);
+            mm = Math.floor(mht / (864 * 100));
+            mmt = mht % (864 * 100);
+            ms = Math.floor(mmt / 864);
+          } else {
            mw = Math.floor(mdiff / (1000 * 60 * 60 * 24 * 7));
-           mwt = mw * 1000 * 60 * 60 * 24 * 7;
-           mdwt = mdiff - mwt;
-           md = Math.floor(mdwt / (1000 * 60 * 60 * 24));
-           mdt = md * 1000 * 60 * 60 * 24;
-           mdddt = mdwt - mdt;
-           mh = Math.floor(mdddt / (864 * 100 * 100));
-           mht = mh * 864 * 100 * 100;
-           mdddtht = mdddt - mht;
-           mm = Math.floor(mdddtht / (864 * 100));
-           mmt = mm * 864 * 100;
-           mdddthtmt = mdddtht - mmt;
-           ms = Math.floor(mdddthtmt / 864);
+           mwt = mdiff % (1000 * 60 * 60 * 24 * 7);
+           md = Math.floor(mwt / (1000 * 60 * 60 * 24));
+           mdt = mwt % (1000 * 60 * 60 * 24);
+           mh = Math.floor(mdt / (864 * 100 * 100));
+           mht = mdt % (864 * 100 * 100);
+           mm = Math.floor(mht / (864 * 100));
+           mmt = mht % (864 * 100);
+           ms = Math.floor(mmt / 864);
           }
            //Checks if difference is greater than or equal to 0ms
            if (mdiff >= 0) {
              //Message based on mode defined in 'e'
-             if (e === "s" ) {
+             if (e === "s") {
                doe = ms + "s"
+             } else if (e === "m") {
+               doe = mm + "m " + ms + "s";
+             } else if (e === "h") {
+               doe = mh + "h " + mm + "m " + ms + "s";
              } else if (e === "d") {
                doe = md + "d " + mh + "h " + mm + "m " + ms + "s";
              } else {
@@ -131,11 +141,15 @@ function countdown (a, b, c = "dt", d = "n", e = "w") {
              }
            } else {
              //Message based on mode
-             if (c === "uf") {
-               doe = "The time at which the timer starts counting up hasn't even started yet!";
+             if (f === undefined) {
+              if (c === "uf") {
+                doe = "The time at which the timer starts counting up hasn't even started yet!";
+              } else {
+                doe = "The time this countdown is counting down to has come";
+                clearInterval(decimal, 864);
+              }
              } else {
-               doe = "The time this countdown is counting down to has come";
-               clearInterval(decimal, 864);
+               doe = f;
              }
            }
            //Puts text into HTML
@@ -155,6 +169,12 @@ function cdww (a, b, c = "dt", d = "n") {
 }
 function countdown_sec (a, b, c = "dt", d = "n") {
   countdown(a, b, c, d, "s");
+}
+function countdown_m (a, b, c = "dt", d = "n") {
+  countdown(a, b, c, d, "m")
+}
+function countdown_h (a, b, c = "dt", d = "n") {
+  countdown(a, b, c, d, "h")
 }
 function timebtw (a, b, c, d = "uf", e = "n") {
     if (a === undefined) {
@@ -367,8 +387,15 @@ function time2dec(a, b, c) {
       var mt = m * 864 * 100;
       var thm = th - mt;
       var s = Math.floor(thm / 864);
+      //Adds 0 to the front if less than 10
+      if (m < 10) {
+        m = "0" + m
+      }
+      if (s < 10) {
+        s = "0" + s
+      }
       //Puts text into HTML
-      document.getElementById(a).innerHTML = dd + " " + h + ":" + m + ":" + s;
+      document.getElementById(a).innerHTML = dd + " " + "0" + h + ":" + m + ":" + s;
     }
     setInterval(func, 864);
   }
