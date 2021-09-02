@@ -72,11 +72,13 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
              }
            } else {
              //Message based on mode defined in 'c'
-             if (c === "uf") {
-               doe = "The time at which the timer starts counting up hasn't even started yet!";
-             } else {
-               doe = "The time this countdown is counting down to has come";
-               clearInterval(norm, 1000);
+             if (f === undefined) {
+              if (c === "uf") {
+                doe = "The time at which the timer starts counting up hasn't even started yet!";
+              } else {
+                doe = "The time this countdown is counting down to has come";
+                clearInterval(norm, 1000);
+              }
              }
            }
            //Puts text into HTML
