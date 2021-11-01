@@ -14,6 +14,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
         }
         if (c !== "uf" && c !== "dt") {
           c = new Date(c).getTime() + new Date().getTimezoneOffset() * 60000;
+          f = undefined;
         }
         //Variable defining for normal time
         var now, diff, w, wt, d, dt, h, ht, m, mt, s, norm;
@@ -87,7 +88,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
                 doe = "NaN" 
               }
              } else {
-               doe = f
+                doe = "NaN"
              }
            }
            //Puts text into HTML
@@ -192,6 +193,12 @@ function countdown_h (a, b, c = "dt", d = "n", f) {
   countdown(a, b, c, d, "h", f)
 }
 function timebtw (a, b, c, d = "uf", e = "n", f = "w") {
+  if (b === undefined) {
+    b = "2021-01-01T00:00Z";
+  }
+  if (c === undefined) {
+    c = "2022-01-01T00:00Z";
+  }
   if (d === "dt") {
     countdown(a, c, b, e, f)
   } else {
