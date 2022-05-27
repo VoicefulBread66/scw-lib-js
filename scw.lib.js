@@ -1,9 +1,10 @@
-/*scw.lib.js v3.5.0
-Copyright VoicefulBread66, 2019-2021*/
+/*scw.lib.js v3.5.1
+Made by VoicefulBread66, 2019-2022*/
 function countdown (a, b, c = "dt", d = "n", e = "w", f) {
     if (a === undefined) {
       //If no element id, stop program
-        return console.log("You did not specify an element id for the program.");
+      console.log("You did not specify an element id for the program.");
+      return
     } else {
         if (b === undefined) {
           //Defines variable b with default value if user didnt put in input
@@ -17,7 +18,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
           f = undefined;
         }
         //Variable defining for normal time
-        var now, diff, w, wt, d, dt, h, ht, m, mt, s, norm;
+        var now, diff, w, wt, d, dt, h, ht, m, mt, s, norm, interval;
         //Defines the normal time function to be repeated with setInterval()
         norm = function () {
           //Defines the current time
@@ -83,54 +84,56 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
                 doe = "The time at which the timer starts counting up hasn't even started yet!";
               } else if (c === "dt") {
                 doe = "The time this countdown is counting down to has come";
-                clearInterval(norm, 1000);
+                clearInterval(interval);
               } else {
-                doe = "NaN" 
+                doe = "NaN"
+                console.log("Check your values in b and c.")
+                return
               }
              } else {
-                doe = "NaN"
+              doe = f
              }
            }
            //Puts text into HTML
            document.getElementById(a).innerHTML = doe;
         };
         //Variable defining for decimal time
-        var mdiff, mnow, mw, mwt, md, mdt, mh, mht, mm, mmt, ms, decimal;
+        var mw, mwt, md, mdt, mh, mht, mm, mmt, ms, decimal;
         decimal = function () {
           //Defines the current time
-          mnow = new Date().getTime();
+          now = new Date().getTime();
           //Uses different settings for different modes
           if (c === "uf") {
-            mdiff = mnow - b;
+            diff = now - b;
           } else if (c === "dt") {
-            mdiff = b - mnow;
+            diff = b - now;
           } else {
-            mdiff = c - b
+            diff = c - b
           }
           //Calculations, based on what is specified in 'e'
           if (e === "s") {
-            ms = Math.floor(mdiff / 864);
+            ms = Math.floor(diff / 864);
           } else if (e === "m") {
-            mm = Math.floor(mdiff / (864 * 100));
-            mmt = mdiff % (864 * 100);
+            mm = Math.floor(diff / (864 * 100));
+            mmt = diff % (864 * 100);
             ms = Math.floor(mmt / 864);
           } else if (e === "h") {
-            mh = Math.floor(mdiff / (864 * 100 * 100));
-            mht = mdiff % (864 * 100 * 100);
+            mh = Math.floor(diff / (864 * 100 * 100));
+            mht = diff % (864 * 100 * 100);
             mm = Math.floor(mht / (864 * 100));
             mmt = mht % (864 * 100);
             ms = Math.floor(mmt / 864);
           } else if (e === "d") {
-            md = Math.floor(mdiff / (1000 * 60 * 60 * 24));
-            mdt = mdiff % (1000 * 60 * 60 * 24);
+            md = Math.floor(diff / (1000 * 60 * 60 * 24));
+            mdt = diff % (1000 * 60 * 60 * 24);
             mh = Math.floor(mdt / (864 * 100 * 100));
             mht = mdt % (864 * 100 * 100);
             mm = Math.floor(mht / (864 * 100));
             mmt = mht % (864 * 100);
             ms = Math.floor(mmt / 864);
           } else {
-           mw = Math.floor(mdiff / (1000 * 60 * 60 * 24 * 7));
-           mwt = mdiff % (1000 * 60 * 60 * 24 * 7);
+           mw = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+           mwt = diff % (1000 * 60 * 60 * 24 * 7);
            md = Math.floor(mwt / (1000 * 60 * 60 * 24));
            mdt = mwt % (1000 * 60 * 60 * 24);
            mh = Math.floor(mdt / (864 * 100 * 100));
@@ -140,7 +143,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
            ms = Math.floor(mmt / 864);
           }
            //Checks if difference is greater than or equal to 0ms
-           if (mdiff >= 0) {
+           if (diff >= 0) {
              //Message based on mode defined in 'e'
              if (e === "s") {
                doe = ms + "s"
@@ -160,7 +163,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
                 doe = "The time at which the timer starts counting up hasn't even started yet!";
               } else if (c === "dt") {
                 doe = "The time this countdown is counting down to has come";
-                clearInterval(decimal, 864);
+                clearInterval(interval);
               } else {
                 doe = "NaN"
               }
@@ -174,9 +177,9 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
         }
         //Sets an interval, depending on parameter d
         if (d === "d") {
-          setInterval(decimal, 864);
+          interval = setInterval(decimal, 864);
         } else {
-          setInterval(norm, 1000)
+          interval = setInterval(norm, 1000)
         }
 }
 //To retain backwards compatibility
@@ -211,7 +214,8 @@ function generate (a, b) {
     clearInterval(stateCheck);
     if (a === undefined) {
       // Stops program if element id not specified
-      return "You did not specify an id for the program"
+      console.log("You did not specify an id for the program");
+      return
     } else {
       //Defining variables
       var a1, a2, a3, b1, b2, b3, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16;
@@ -275,7 +279,8 @@ function pswgen(a) {
 function time2dec(a, b, c) {
   if (a === undefined) {
     //Stops program if no element id provided
-    return console.log("You did not specify an element id for the program");
+    console.log("You did not specify an element id for the program");
+    return
   } else {
     var d, e, dd, date, tsds, h, ht, m, mt, s;
     if (b === undefined) {
@@ -305,7 +310,7 @@ function time2dec(a, b, c) {
       //Locale Date String to get [DD: Int.toString()] [MMM: string] [YYYY: Int.toString()]
       dd = d.toLocaleDateString("en-SG", {year: "numeric", "month": "short", "day": "numeric"});
       //Calculation of amount of time (days) minus hours, minutes, seconds
-      date = Math.floor(e / (864 * 100 * 100 * 10)) * 864 * 100 * 100 * 10;
+      date = Math.floor((e + b) / (864 * 100 * 100 * 10)) * 864 * 100 * 100 * 10;
       //Time since day start
       tsds = e - date + b;
       //Calculations
@@ -333,15 +338,18 @@ function time2dec_c(a, b, c) {
 function gen_no(a, b = 0, c = 1000) {
 	let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
-		clearInterval(stateCheck);
+    clearInterval(stateCheck);
 		if (a === undefined) {
-			return "You did not specify an element id for the program"
+			console.log("You did not specify an element id for the program");
+      return
 		} else {
+      b = parseInt(b);
+      c = parseInt(c)
 			if (c > b) {
 				document.getElementById(a).innerHTML = Math.round(Math.random() * (c - b)) + b
 			} else {
-				return "Error: The max in the random number generator is more than the min."
+				console.log("Error: Check your b and c values");
+        return
 			}
 		}
-	}}, 100)
-}
+	}}, 100)}
