@@ -24,5 +24,5 @@ The following is an example of a HTML file utilizing scw.lib.js:
 # More information
 More information on scw-custom.lib.js is available in the wiki
 # Creator
-scw-custom.lib.js has been developed by VoicefulBread66 since 2022.
-However, it is based off scw.lib.js, which has been developed by VoicefulBread66 since 2019
+scw-custom.lib.js has been developed by VoicefulBread66 since 2022.<br>
+However, it is based off scw.lib.js, which has been developed by VoicefulBread66 since 2019.
