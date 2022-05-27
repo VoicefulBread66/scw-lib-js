@@ -166,6 +166,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
                 clearInterval(interval);
               } else {
                 doe = "NaN"
+		console.log("Check your values in b and c.")
               }
              } else {
                doe = f;
