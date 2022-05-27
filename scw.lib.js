@@ -88,7 +88,6 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
               } else {
                 doe = "NaN"
                 console.log("Check your values in b and c.")
-                return
               }
              } else {
               doe = f
