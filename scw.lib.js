@@ -8,7 +8,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
     } else {
         if (b === undefined) {
           //Defines variable b with default value if user didnt put in input
-            b = new Date("2022-01-01T00:00:00Z").getTime() + new Date().getTimezoneOffset() * 60000;
+            b = new Date("2023-01-01T00:00:00Z").getTime() + new Date().getTimezoneOffset() * 60000;
         } else {
           //if user puts in input, converts it to miliseconds
             b = new Date(b).getTime() + new Date().getTimezoneOffset() * 60000;
