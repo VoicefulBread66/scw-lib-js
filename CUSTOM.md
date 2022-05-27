@@ -5,7 +5,7 @@ This version is based on scw.lib.js v3.5.1
 If you want to use a hosted version from the web, paste the following code into your ```<head>``` tag:
 ```<script src="https://scwco.cf/scripts/scw-custom.lib.min.js"></script>```
 If you want to use a local version, you can download the script off Github (both minified and unminified versions are available) and link it using a similar ```<script>```
-### Very important note: Do NOT use ```async``` in the script tag linking to this script. scw.lib.js sometimes does not function properly with ```async```.
+### Very important note: Do NOT use ```async``` in the script tag linking to this script. scw-custom.lib.js sometimes does not function properly with ```async```.
 # How to type scw.lib.js code
 After you have added scw.lib.js to your HTML file, make a seperate ```<script>``` tag inside of your ```<head>``` tag, and put it after the ```<script>``` which you used to add scw.lib.js to your HTML file.
 The following is an example of a HTML file utilizing scw.lib.js:
@@ -17,7 +17,7 @@ The following is an example of a HTML file utilizing scw.lib.js:
 <script src="https://scwco.cf/scripts/scw-custom.lib.min.js"></script>
 </head>
 <body>
-<span id="A"></span>
+<scw-countdown></scw-countdown>
 </body>
 </html>
 ```
