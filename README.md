@@ -25,6 +25,6 @@ countdown("A")
 </html>
 ```
 # More information
-More information on scw.lib.js is available in the [wiki](wiki)
+More information on scw.lib.js is available in the [wiki](wiki)!
 # Creator
 This has been developed by VoicefulBread66 since 2019.
