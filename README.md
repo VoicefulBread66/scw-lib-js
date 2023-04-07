@@ -1,5 +1,5 @@
 # Release
-The latest release version of scw.lib.js is v3.5.1.<br>
+The latest release version of scw.lib.js is v3.6.0.<br>
 **Note: If you are looking for information on scw-custom.lib.js, go to [CUSTOM.md](CUSTOM.md).**
 # How to add scw.lib.js to your HTML file
 If you want to use a hosted version from the web, paste the following code into your ```<head>``` tag:
@@ -9,7 +9,7 @@ If you want to use a local version, you can download the script off Github (both
 # How to type scw.lib.js code
 After you have added scw.lib.js to your HTML file, make a seperate ```<script>``` tag inside of your ```<head>``` tag, and put it after the ```<script>``` which you used to add scw.lib.js to your HTML file.
 The following is an example of a HTML file utilizing scw.lib.js:
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
