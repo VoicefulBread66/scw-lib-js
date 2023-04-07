@@ -23,7 +23,7 @@ The following is an example of a HTML file utilizing scw-custom.lib.js:
 </html>
 ```
 # More information
-More information on scw-custom.lib.js is available in the [wiki](wiki)!
+More information on scw-custom.lib.js is available in the [wiki](../../wiki)!
 # Creator
 scw-custom.lib.js has been developed by VoicefulBread66 since 2022.<br>
 However, it is based off scw.lib.js, which has been developed by VoicefulBread66 since 2019.
