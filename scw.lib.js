@@ -184,6 +184,13 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
                doe = f;
                if (c === "dt") {clearInterval(interval)}
              }
+             //Runs function after countdown if in "countdown" mode
+            if (h !== undefined && c === "dt") {
+              endf = Function(h);
+              if (typeof endf === "function") {
+                endf()
+              }
+            }
            }
            //Puts text into HTML
            document.getElementById(a).innerHTML = doe;
