@@ -1,24 +1,29 @@
-/*scw.lib.js v3.5.1
-Made by VoicefulBread66, 2019-2022*/
-function countdown (a, b, c = "dt", d = "n", e = "w", f) {
+/*scw.lib.js v3.6.0
+Made by VoicefulBread66, 2019-2023*/
+function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
     if (a === undefined) {
       //If no element id, stop program
       console.log("You did not specify an element id for the program.");
       return
     } else {
-        if (b === undefined) {
+        var offset = new Date().getTimezoneOffset() * 60000, d1 = new Date()
+        if (c !== "uf" && c !== "dt") {g = true}
+        if (g === false && b !== undefined) {offset = 0}
+        if (b === undefined && c !== "uf") {
           //Defines variable b with default value if user didnt put in input
-            b = new Date("2023-01-01T00:00:00Z").getTime() + new Date().getTimezoneOffset() * 60000;
+            b = new Date((d1.getFullYear() + 1).toString() + "-01-01T00:00Z").getTime() + offset;
+        } else if (b === undefined && c === "uf") {
+          b = new Date((d1.getFullYear()).toString() + "-01-01T00:00Z").getTime() + offset;
         } else {
           //if user puts in input, converts it to miliseconds
-            b = new Date(b).getTime() + new Date().getTimezoneOffset() * 60000;
+            b = new Date(b).getTime() + offset;
         }
         if (c !== "uf" && c !== "dt") {
-          c = new Date(c).getTime() + new Date().getTimezoneOffset() * 60000;
+          c = new Date(c).getTime() + offset;
           f = undefined;
         }
         //Variable defining for normal time
-        var now, diff, w, wt, d, dt, h, ht, m, mt, s, norm, interval;
+        var now, diff, w, wt, d, dt, ho, ht, m, mt, s, norm, interval, endf;
         //Defines the normal time function to be repeated with setInterval()
         norm = function () {
           //Defines the current time
@@ -39,7 +44,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
             mt = diff % (1000 * 60)
             s = Math.floor(mt / 1000);
           } else if (e === "h") {
-            h = Math.floor(diff / (1000 * 60 * 60));
+            ho = Math.floor(diff / (1000 * 60 * 60));
             ht = diff % (1000 * 60 * 60);
             m = Math.floor(ht / (1000 * 60));
             mt = ht % (1000 * 60)
@@ -47,7 +52,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
           } else if (e === "d") {
             d = Math.floor(diff / (1000 * 60 * 60 * 24));
             dt = diff % (1000 * 60 * 60 * 24);
-            h = Math.floor(dt / (1000 * 60 * 60));
+            ho = Math.floor(dt / (1000 * 60 * 60));
             ht = dt % (1000 * 60 * 60);
             m = Math.floor(ht / (1000 * 60));
             mt = ht % (1000 * 60);
@@ -57,7 +62,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
            wt = diff % (1000 * 60 * 60 * 24 * 7);
            d = Math.floor(wt / (1000 * 60 * 60 * 24));
            dt = wt % (1000 * 60 * 60 * 24);
-           h = Math.floor(dt / (1000 * 60 * 60));
+           ho = Math.floor(dt / (1000 * 60 * 60));
            ht = dt % (1000 * 60 * 60);
            m = Math.floor(ht / (1000 * 60));
            mt = ht % (1000 * 60);
@@ -71,11 +76,11 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
              } else if (e === "m") {
                doe = m + "m " + s + "s";
              } else if (e === "h") {
-               doe = h + "h " + m + "m " + s + "s";
+               doe = ho + "h " + m + "m " + s + "s";
              } else if (e === "d") {
-               doe = d + "d " + h + "h " + m + "m " + s + "s";
+               doe = d + "d " + ho + "h " + m + "m " + s + "s";
              } else {
-              doe = w + "w " + d + "d " + h + "h " + m + "m " + s + "s";
+              doe = w + "w " + d + "d " + ho + "h " + m + "m " + s + "s";
              }
            } else {
              //Message based on mode defined in 'c'
@@ -91,7 +96,15 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
               }
              } else {
               doe = f
+              if (c === "dt") {clearInterval(interval)}
              }
+             //Runs function after countdown if in "countdown" mode
+            if (h !== undefined && c === "dt") {
+              endf = Function(h);
+              if (typeof endf === "function") {
+                endf()
+              }
+            }
            }
            //Puts text into HTML
            document.getElementById(a).innerHTML = doe;
@@ -165,10 +178,11 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
                 clearInterval(interval);
               } else {
                 doe = "NaN"
-		console.log("Check your values in b and c.")
+                console.log("Check your values in b and c.")
               }
              } else {
                doe = f;
+               if (c === "dt") {clearInterval(interval)}
              }
            }
            //Puts text into HTML
@@ -181,26 +195,31 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f) {
         } else {
           interval = setInterval(norm, 1000)
         }
+        if (c !== "uf" && c !== "dt") {
+        setTimeout(function() {
+          clearInterval(interval)
+        }, 2592)
+      }
 }
 //To retain backwards compatibility
-function cdww (a, b, c = "dt", d = "n", f) {
+function cdww (a, b, c = "dt", d = "n", f, g = true) {
   countdown(a, b, c, d, "d", f)
 }
-function countdown_sec (a, b, c = "dt", d = "n", f) {
+function countdown_sec (a, b, c = "dt", d = "n", f, g = true) {
   countdown(a, b, c, d, "s", f);
 }
-function countdown_m (a, b, c = "dt", d = "n", f) {
+function countdown_m (a, b, c = "dt", d = "n", f, g = true) {
   countdown(a, b, c, d, "m", f)
 }
-function countdown_h (a, b, c = "dt", d = "n", f) {
+function countdown_h (a, b, c = "dt", d = "n", f, g = true) {
   countdown(a, b, c, d, "h", f)
 }
 function timebtw (a, b, c, d = "uf", e = "n", f = "w") {
   if (b === undefined) {
-    b = "2021-01-01T00:00Z";
+    b = (new Date().getFullYear()).toString() + "-01-01T00:00Z";
   }
   if (c === undefined) {
-    c = "2022-01-01T00:00Z";
+    c = (new Date().getFullYear() + 1).toString() + "-01-01T00:00Z";
   }
   if (d === "dt") {
     countdown(a, c, b, e, f)
@@ -208,62 +227,56 @@ function timebtw (a, b, c, d = "uf", e = "n", f = "w") {
     countdown(a, b, c, e, f)
   }
 }
-function generate (a, b) {
+//To allow the function to be run without using every argument
+function count_down({a, b, c = "dt", d = "n", e = "w", f, g = false, h}) {
+  if (c !== "dt" && c !== "uf") {g = true}
+  countdown(a, b, c, d, e, f, g, h)
+}
+function generate(a, b = "16_16") {
   let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(stateCheck);
     if (a === undefined) {
       // Stops program if element id not specified
-      console.log("You did not specify an id for the program");
+      console.log("You did not specify an element id for the program");
       return
     } else {
-      //Defining variables
-      var a1, a2, a3, b1, b2, b3, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16;
-      //Defines arrays and number to multiply by
-      if (b === "64_16") {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "$", "."];
-        a2 = a1;
-        a3 = a1;
-        b1 = 64;
-        b2 = b1;
-      } else if (b === "psw") {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-        a2 = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
-        a3 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-        b1 = 10;
-        b2 = 52;
-      } else if (b === "yt") {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "-", "_"];
-        b1 = 64;
-        b2 = b1;
-      } else {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
-        a2 = a1;
-        a3 = a1;
-        b1 = 16;
-        b2 = b1;
+      var digits = "0123456789ABCDEF", rdg = "", cc = 0, total = 16, b1 = 16
+      if (b == "64_16") {
+        digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$."
+        b1 = 64
+      } else if (b == "psw") {
+        digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
+        b1 = 72
+      } else if (b == "yt") {
+        digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
+        b1 = 64
+        total = 11
       }
-      c1 = Math.floor(Math.random() * b2);
-      c2 = Math.floor(Math.random() * b2);
-      c3 = Math.floor(Math.random() * b1);
-      c4 = Math.floor(Math.random() * b2);
-      c5 = Math.floor(Math.random() * b1);
-      c6 = Math.floor(Math.random() * b2);
-      c7 = Math.floor(Math.random() * b2);
-      c8 = Math.floor(Math.random() * b2);
-      c9 = Math.floor(Math.random() * b1);
-      c10 = Math.floor(Math.random() * b2);
-      c11 = Math.floor(Math.random() * b2);
-      c12 = Math.floor(Math.random() * b1);
-      c13 = Math.floor(Math.random() * b2);
-      c14 = Math.floor(Math.random() * b2);
-      c15 = Math.floor(Math.random() * b2);
-      c16 = Math.floor(Math.random() * b2);
-      if (b === "yt") {
-        document.getElementById(a).innerHTML = a1[c1] + a1[c2] + a1[c3] + a1[c4] + a1[c5] + a1[c6] + a1[c7] + a1[c8] + a1[c9] + a1[c10] + a1[c11];
-      } else {
-        document.getElementById(a).innerHTML = a3[c1] + a3[c2] + a1[c3] + a3[c4] + a2[c5] + a3[c6] + a3[c7] + a3[c8] + a1[c9] + a3[c10] + a3[c11] + a2[c12] + a3[c13] + a3[c14] + a3[c15] + a3[c16];
-      }
+      do {
+        rdg += digits[Math.floor(Math.random() * b1)]
+        if (cc < (total - 1)) {cc++}
+        else if (b == "psw") {
+          var a1 = false, a2 = a1, a3 = a1, a4 = a1
+          for (let cp = 0; cp < total; cp++) {
+            if (rdg[cp].toLowerCase() === rdg[cp]) {a1 = true}
+            if (rdg[cp].toUpperCase() === rdg[cp]) {a2 = true}
+            if ("!@#$%^&*()".includes(rdg[cp])) {a3 = true}
+            if ("0123456789".includes(rdg[cp])) {a4 = true}
+          }
+          if ((a1 == false) || (a2 == false) || (a3 == false) || (a4 == false)) {
+            rdg = ""
+            a1 = false; a2 = a1; a3 = a1; a4 = a1
+            cc = 0
+          } else {
+            document.getElementById(a).innerHTML = rdg
+            cc++
+          }
+        } else {
+          document.getElementById(a).innerHTML = rdg
+          cc++
+        }
+      } while (cc < total)
     }
 }}, 100)}
 //To retain backwards compatibility
@@ -277,6 +290,9 @@ function pswgen(a) {
   generate(a, "psw")
 }
 function time2dec(a, b, c) {
+  let stateCheck = setInterval(() => {
+  if (document.readyState === 'complete') {
+    clearInterval(stateCheck);
   if (a === undefined) {
     //Stops program if no element id provided
     console.log("You did not specify an element id for the program");
@@ -308,7 +324,7 @@ function time2dec(a, b, c) {
         d = new Date(c);
       }
       //Locale Date String to get [DD: Int.toString()] [MMM: string] [YYYY: Int.toString()]
-      dd = d.toLocaleDateString("en-SG", {year: "numeric", "month": "short", "day": "numeric"});
+      dd = d.toLocaleDateString("en-SG", {year: "numeric", month: "short", day: "numeric"});
       //Calculation of amount of time (days) minus hours, minutes, seconds
       date = Math.floor((e + b) / (864 * 100 * 100 * 10)) * 864 * 100 * 100 * 10;
       //Time since day start
@@ -329,9 +345,13 @@ function time2dec(a, b, c) {
       //Puts text into HTML
       document.getElementById(a).innerHTML = dd + " " + "0" + h + ":" + m + ":" + s;
     }
-    setInterval(func, 864);
+    if (c === undefined) {
+      var interval = setInterval(func, 864);
+    } else {
+      func()
+    }
   }
-}
+}}, 100)}
 function time2dec_c(a, b, c) {
   time2dec(a, b, c);
 }
@@ -348,8 +368,8 @@ function gen_no(a, b = 0, c = 1000) {
 			if (c > b) {
 				document.getElementById(a).innerHTML = Math.round(Math.random() * (c - b)) + b
 			} else {
-				console.log("Error: Check your b and c values");
-        return
+				document.getElementById(a).innerHTML = Math.round(Math.random() * (b - c)) + c
+        console.log("The values of b and c in scw-generate were swapped as your value of b was greater than your value for c.")
 			}
 		}
 	}}, 100)}
