@@ -1,6 +1,6 @@
-/*scw-custom.lib.js v1.0.0
-scw.lib.js v3.5.1
-Made by VoicefulBread66, 2019-2022*/
+/*scw-custom.lib.js v1.1.0
+scw.lib.js v3.6.0
+Made by VoicefulBread66, 2019-2023*/
 let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(stateCheck);
@@ -8,21 +8,22 @@ let stateCheck = setInterval(() => {
 class SCWCountdown extends HTMLElement {
   constructor() {
     super();
-    var time, display, start, end, element = this, mode, pe = this.hasAttribute("param-edit"), decima = this.hasAttribute("decimal"), interval;
+    var time, display, start, end, element = this, mode, decima = this.hasAttribute("decimal"), pe = this.hasAttribute("param-edit"), interval, endf, offset;
     //test if element has defined time
     //Interval/function, depending on decimal, param-edit, and mode
     var Params = function() {
+      var d1 = new Date()
       mode = element.getAttribute("mode")
       if (element.hasAttribute("time")) {
         time = new Date(element.getAttribute("time")).getTime()
       } else {
         //Default time based on "uf"/"dt"/"tb"
         if (mode === "uf") {
-          time = new Date("2022-01-01T00:00").getTime()
-          element.setAttribute("time", "2022-01-01T00:00")
+          time = new Date((d1.getFullYear()).toString() + "-01-01T00:00Z").getTime()
+          element.setAttribute("time", (d1.getFullYear()).toString() + "-01-01T00:00Z")
         } else {
-          time = new Date("2023-01-01T00:00").getTime()
-          element.setAttribute("time", "2023-01-01T00:00")
+          time = new Date((d1.getFullYear() + 1).toString() + "-01-01T00:00Z").getTime()
+          element.setAttribute("time", (d1.getFullYear() + 1).toString() + "-01-01T00:00Z")
         }
       }
       if (element.hasAttribute("mode") === false) {
@@ -31,8 +32,8 @@ class SCWCountdown extends HTMLElement {
       if (element.hasAttribute("start")) {
         start = new Date(element.getAttribute("start")).getTime()
       } else {
-        start = new Date("2022-01-01T00:00").getTime()
-        element.setAttribute("start", "2022-01-01T00:00")
+        start = new Date((d1.getFullYear()).toString() + "-01-01T00:00Z").getTime()
+        element.setAttribute("start", (d1.getFullYear()).toString() + "-01-01T00:00Z")
       }
       if (element.hasAttribute("end")) {
         end = new Date(element.getAttribute("end")).getTime()
@@ -49,7 +50,7 @@ class SCWCountdown extends HTMLElement {
     Params()
     if (pe === true) {setInterval(Params, 1000)}
     //Variable defining for normal time
-    var now, diff, w, wt, d, dt, h, ht, m, mt, s, norm, doe;
+    var now, diff, w, wt, d, dt, ho, ht, m, mt, s, norm, doe;
     //Defines the normal time function to be repeated with setInterval()
     norm = function () {
       //Defines the current time
@@ -70,7 +71,7 @@ class SCWCountdown extends HTMLElement {
         mt = diff % (1000 * 60)
         s = Math.floor(mt / 1000);
       } else if (display === "h") {
-        h = Math.floor(diff / (1000 * 60 * 60));
+        ho = Math.floor(diff / (1000 * 60 * 60));
         ht = diff % (1000 * 60 * 60);
         m = Math.floor(ht / (1000 * 60));
         mt = ht % (1000 * 60)
@@ -78,7 +79,7 @@ class SCWCountdown extends HTMLElement {
       } else if (display === "d") {
         d = Math.floor(diff / (1000 * 60 * 60 * 24));
         dt = diff % (1000 * 60 * 60 * 24);
-        h = Math.floor(dt / (1000 * 60 * 60));
+        ho = Math.floor(dt / (1000 * 60 * 60));
         ht = dt % (1000 * 60 * 60);
         m = Math.floor(ht / (1000 * 60));
         mt = ht % (1000 * 60);
@@ -88,7 +89,7 @@ class SCWCountdown extends HTMLElement {
         wt = diff % (1000 * 60 * 60 * 24 * 7);
         d = Math.floor(wt / (1000 * 60 * 60 * 24));
         dt = wt % (1000 * 60 * 60 * 24);
-        h = Math.floor(dt / (1000 * 60 * 60));
+        ho = Math.floor(dt / (1000 * 60 * 60));
         ht = dt % (1000 * 60 * 60);
         m = Math.floor(ht / (1000 * 60));
         mt = ht % (1000 * 60);
@@ -97,16 +98,16 @@ class SCWCountdown extends HTMLElement {
        //Checks if difference is greater than or equal to 0ms
       if (diff >= 0) {
         //Message based on mode defined in 'display'
-        if (display === "s" ) {
+        if (display === "s") {
           doe = s + "s"
         } else if (display === "m") {
           doe = m + "m " + s + "s";
         } else if (display === "h") {
-         doe = h + "h " + m + "m " + s + "s";
+         doe = ho + "h " + m + "m " + s + "s";
         } else if (display === "d") {
-           doe = d + "d " + h + "h " + m + "m " + s + "s";
+           doe = d + "d " + ho + "h " + m + "m " + s + "s";
         } else {
-          doe = w + "w " + d + "d " + h + "h " + m + "m " + s + "s";
+          doe = w + "w " + d + "d " + ho + "h " + m + "m " + s + "s";
         }
       } else {
         //Message based on mode defined in 'mode'
@@ -116,7 +117,7 @@ class SCWCountdown extends HTMLElement {
             console.log("Check your start and end values in scw-countdown.")
           } else {
             doe = element.getAttribute("message")
-            if (pe === false && mode === "uf") {clearInterval(interval)}
+            if (pe === false && mode !== "uf") {clearInterval(interval)}
           }
         } else {
           if (mode === "uf") {
@@ -129,10 +130,16 @@ class SCWCountdown extends HTMLElement {
             if (pe === false) {clearInterval(interval)}
           }
         }
+        //Runs function after countdown if in "countdown" mode
+        if (element.hasAttribute("end-function") && mode !== "uf" && mode !== "tb") {
+          endf = Function(element.getAttribute("end-function"));
+          if (typeof endf === "function") {
+            endf()
+          }
+        }
       }
       //Puts text into HTML
       element.innerHTML = doe;
-      //console.log(this.innerHTML)
     };
     //Variable defining for decimal time
     var mw, mwt, md, mdt, mh, mht, mm, mmt, ms, decimal;
@@ -201,7 +208,7 @@ class SCWCountdown extends HTMLElement {
             console.log("Check your start and end values in scw-countdown.");
           } else {
             doe = element.getAttribute("message");
-            if (pe === false && mode === "uf") {clearInterval(interval)}
+            if (pe === false && mode !== "uf") {clearInterval(interval)}
           }
         } else {
           if (mode === "uf") {
@@ -212,6 +219,13 @@ class SCWCountdown extends HTMLElement {
           } else {
             doe = "The time this countdown is counting down to has come";
             if (pe === false) {clearInterval(interval)}
+          }
+        }
+        //Runs function after countdown if in "countdown" mode
+        if (element.hasAttribute("end-function") && mode !== "uf" && mode !== "tb") {
+          endf = Function(element.getAttribute("end-function"));
+          if (typeof endf === "function") {
+            endf()
           }
         }
       }
@@ -229,7 +243,7 @@ class SCWCountdown extends HTMLElement {
     }
   }
 }
-window.customElements.define("scw-countdown", SCWCountdown);
+    window.customElements.define("scw-countdown", SCWCountdown);
 //scw-generate
 class SCWGenerate extends HTMLElement {
   constructor() {
@@ -237,68 +251,47 @@ class SCWGenerate extends HTMLElement {
     var element = document.createElement("span");
     var main = this, mode;
     this.appendChild(element);
-    //Defining variables
-    var a1, a2, a3, b1, b2, b3, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16;
     //Defines arrays and number to multiply by
-    if (this.hasAttribute("button")) {
-      if (this.hasAttribute("line-break")) {
-        this.appendChild(document.createElement("br"))
-      }
-      var button = document.createElement("button");
-      this.appendChild(button)
-      if (this.hasAttribute("button-text")) {
-        button.innerHTML = this.getAttribute("button-text")
-      } else {
-        button.innerText = "Generate!"
-      }
-    }
     function Generate() {
+      //Defining variables
+      var digits = "0123456789ABCDEF", rdg = "", cc = 0, total = 16, b1 = 16, a1 = false, a2 = a1, a3 = a1, a4 = a1
       mode = main.getAttribute("mode")
       if (mode === "64_16") {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "$", "."];
-        a2 = a1;
-        a3 = a1;
-        b1 = 64;
-        b2 = b1;
+        digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$."
+        b1 = 64
       } else if (mode === "psw") {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-        a2 = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
-        a3 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-        b1 = 10;
-        b2 = 52;
+        digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
+        b1 = 72
       } else if (mode === "yt") {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "-", "_"];
-        b1 = 64;
-        b2 = b1;
-      } else if (mode !== "number") {
-        a1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
-        a2 = a1;
-        a3 = a1;
-        b1 = 16;
-        b2 = b1;
-        main.setAttribute("mode", "16_16")
+        digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
+        b1 = 64
+        total = 11
       }
       if (mode !== "number") {
-        c1 = Math.floor(Math.random() * b2);
-        c2 = Math.floor(Math.random() * b2);
-        c3 = Math.floor(Math.random() * b1);
-        c4 = Math.floor(Math.random() * b2);
-        c5 = Math.floor(Math.random() * b1);
-        c6 = Math.floor(Math.random() * b2);
-        c7 = Math.floor(Math.random() * b2);
-        c8 = Math.floor(Math.random() * b2);
-        c9 = Math.floor(Math.random() * b1);
-        c10 = Math.floor(Math.random() * b2);
-        c11 = Math.floor(Math.random() * b2);
-        c12 = Math.floor(Math.random() * b1);
-        c13 = Math.floor(Math.random() * b2);
-        c14 = Math.floor(Math.random() * b2);
-        c15 = Math.floor(Math.random() * b2);
-        c16 = Math.floor(Math.random() * b2);
-      }
-      if (mode === "yt") {
-        element.innerHTML = a1[c1] + a1[c2] + a1[c3] + a1[c4] + a1[c5] + a1[c6] + a1[c7] + a1[c8] + a1[c9] + a1[c10] + a1[c11];
-      } else if (mode === "number") {
+      do {
+        rdg += digits[Math.floor(Math.random() * b1)]
+        if (cc < (total - 1)) {cc++}
+        else if (mode === "psw") {
+          var a1 = false, a2 = a1, a3 = a1, a4 = a1
+          for (let cp = 0; cp < total; cp++) {
+            if (rdg[cp].toLowerCase() === rdg[cp]) {a1 = true}
+            if (rdg[cp].toUpperCase() === rdg[cp]) {a2 = true}
+            if ("!@#$%^&*()".includes(rdg[cp])) {a3 = true}
+            if ("0123456789".includes(rdg[cp])) {a4 = true}
+          }
+          if ((a1 == false) || (a2 == false) || (a3 == false) || (a4 == false)) {
+            rdg = ""
+            a1 = false; a2 = a1; a3 = a1; a4 = a1
+            cc = 0
+          } else {
+            element.innerHTML = rdg
+            cc++
+          }
+        } else {
+          element.innerHTML = rdg
+          cc++
+        }
+      } while (cc < total)} else if (mode === "number") {
         var min, max
         if (main.hasAttribute("min")) {
           min = parseInt(main.getAttribute("min"))
@@ -315,15 +308,25 @@ class SCWGenerate extends HTMLElement {
         if (max > min) {
           element.innerHTML = Math.round(Math.random() * (max - min)) + min
         } else {
-          console.log("Check your min and max values in scw-generate");
-          return
+          element.innerHTML = Math.round(Math.random() * (min - max)) + max
+          console.log("The values of min and max in scw-generate were swapped as your value of min was greater than your value for max.")
         }
-      } else {
-        element.innerHTML = a3[c1] + a3[c2] + a1[c3] + a3[c4] + a2[c5] + a3[c6] + a3[c7] + a3[c8] + a1[c9] + a3[c10] + a3[c11] + a2[c12] + a3[c13] + a3[c14] + a3[c15] + a3[c16];
       }
     }
     Generate()
-    button.onclick = Generate
+    if (this.hasAttribute("button")) {
+      if (this.hasAttribute("line-break")) {
+        this.appendChild(document.createElement("br"))
+      }
+      var button = document.createElement("button");
+      this.appendChild(button)
+      if (this.hasAttribute("button-text")) {
+        button.innerHTML = this.getAttribute("button-text")
+      } else {
+        button.innerText = "Generate!"
+      }
+      button.onclick = Generate
+    }
   }
 }
 window.customElements.define("scw-generate", SCWGenerate);
@@ -352,7 +355,7 @@ class SCWTime2Dec extends HTMLElement {
         d = new Date();
       }
       //Locale Date String to get [DD: Int.toString()] [MMM: string] [YYYY: Int.toString()]
-      dd = d.toLocaleDateString("en-SG", {year: "numeric", "month": "short", "day": "numeric"});
+      dd = d.toLocaleDateString("en-SG", {year: "numeric", month: "short", day: "numeric"});
       //Calculation of amount of time (days) minus hours, minutes, seconds
       date = Math.floor((d.getTime() + timezone) / (864 * 100 * 100 * 10)) * 864 * 100 * 100 * 10;
       //Time since day start
