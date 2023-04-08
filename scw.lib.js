@@ -209,17 +209,17 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
       }
 }
 //To retain backwards compatibility
-function cdww (a, b, c = "dt", d = "n", f, g = true) {
-  countdown(a, b, c, d, "d", f)
+function cdww (a, b, c = "dt", d = "n", f, g = true, h) {
+  countdown(a, b, c, d, "d", f, g, h)
 }
-function countdown_sec (a, b, c = "dt", d = "n", f, g = true) {
-  countdown(a, b, c, d, "s", f);
+function countdown_sec (a, b, c = "dt", d = "n", f, g = true, h) {
+  countdown(a, b, c, d, "s", f, g, h);
 }
-function countdown_m (a, b, c = "dt", d = "n", f, g = true) {
-  countdown(a, b, c, d, "m", f)
+function countdown_m (a, b, c = "dt", d = "n", f, g = true, h) {
+  countdown(a, b, c, d, "m", f, g, h)
 }
-function countdown_h (a, b, c = "dt", d = "n", f, g = true) {
-  countdown(a, b, c, d, "h", f)
+function countdown_h (a, b, c = "dt", d = "n", f, g = true, h) {
+  countdown(a, b, c, d, "h", f, g, h)
 }
 function timebtw (a, b, c, d = "uf", e = "n", f = "w") {
   if (b === undefined) {
