@@ -1,5 +1,5 @@
-/*scw-custom.lib.js v1.1.0
-scw.lib.js v3.6.0
+/*scw-custom.lib.js v1.2.0
+scw.lib.js v3.7.0
 Made by VoicefulBread66, 2019-2023*/
 let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
@@ -8,7 +8,7 @@ let stateCheck = setInterval(() => {
 class SCWCountdown extends HTMLElement {
   constructor() {
     super();
-    var time, display, start, end, element = this, mode, decima = this.hasAttribute("decimal"), pe = this.hasAttribute("param-edit"), interval, endf, offset;
+    var time, display, start, end, element = this, mode, decima = this.hasAttribute("decimal"), pe = this.hasAttribute("param-edit"), interval, endf, offset, adsp, wdsp, ddsp, hdsp, mdsp, sdsp;
     //test if element has defined time
     //Interval/function, depending on decimal, param-edit, and mode
     var Params = function() {
@@ -41,14 +41,22 @@ class SCWCountdown extends HTMLElement {
         end = new Date("2023-01-01T00:00").getTime()
         element.setAttribute("end", "2023-01-01T00:00")
       }
+      if (start > end) {[start, end] = [end, start]}
       if (element.hasAttribute("display")) {
         display = element.getAttribute("display")
       } else {
         element.setAttribute("display", "w")
       }
+      adsp = "", wdsp = "w ", ddsp = "d ", hdsp = "h ", mdsp = "m ", sdsp = "s"
+      if (element.hasAttribute("disp-a")) {adsp = element.getAttribute("disp-a")}
+      if (element.hasAttribute("disp-w")) {wdsp = element.getAttribute("disp-w")}
+      if (element.hasAttribute("disp-d")) {ddsp = element.getAttribute("disp-d")}
+      if (element.hasAttribute("disp-h")) {hdsp = element.getAttribute("disp-h")}
+      if (element.hasAttribute("disp-m")) {mdsp = element.getAttribute("disp-m")}
+      if (element.hasAttribute("disp-s")) {sdsp = element.getAttribute("disp-s")}
     }
     Params()
-    if (pe === true) {setInterval(Params, 1000)}
+    if (pe === true) {setInterval(Params, 2792)}
     //Variable defining for normal time
     var now, diff, w, wt, d, dt, ho, ht, m, mt, s, norm, doe;
     //Defines the normal time function to be repeated with setInterval()
@@ -96,18 +104,18 @@ class SCWCountdown extends HTMLElement {
         s = Math.floor(mt / 1000);
       }
        //Checks if difference is greater than or equal to 0ms
-      if (diff >= 0) {
+      if (diff >= 0 || (diff < 0 && f === false)) {
         //Message based on mode defined in 'display'
         if (display === "s") {
-          doe = s + "s"
+          doe = adsp + s + sdsp;
         } else if (display === "m") {
-          doe = m + "m " + s + "s";
+          doe = adsp + m + mdsp + s + sdsp;
         } else if (display === "h") {
-         doe = ho + "h " + m + "m " + s + "s";
+          doe = adsp + ho + hdsp + m + mdsp + s + sdsp;
         } else if (display === "d") {
-           doe = d + "d " + ho + "h " + m + "m " + s + "s";
+           doe = adsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
         } else {
-          doe = w + "w " + d + "d " + ho + "h " + m + "m " + s + "s";
+          doe = adsp + w + wdsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
         }
       } else {
         //Message based on mode defined in 'mode'
@@ -133,9 +141,7 @@ class SCWCountdown extends HTMLElement {
         //Runs function after countdown if in "countdown" mode
         if (element.hasAttribute("end-function") && mode !== "uf" && mode !== "tb") {
           endf = Function(element.getAttribute("end-function"));
-          if (typeof endf === "function") {
-            endf()
-          }
+          endf()
         }
       }
       //Puts text into HTML
@@ -187,18 +193,18 @@ class SCWCountdown extends HTMLElement {
         ms = Math.floor(mmt / 864);
       }
       //Checks if difference is greater than or equal to 0ms
-      if (diff >= 0) {
+      if (diff >= 0 || (diff < 0 && f === false)) {
         //Message based on mode defined in 'display'
         if (display === "s") {
-          doe = ms + "s"
+          doe = adsp + ms + sdsp;
         } else if (display === "m") {
-          doe = mm + "m " + ms + "s";
+          doe = adsp + mm + mdsp + ms + sdsp;
         } else if (display === "h") {
-          doe = mh + "h " + mm + "m " + ms + "s";
+          doe = adsp + mh + hdsp + mm + mdsp + ms + sdsp;
         } else if (display === "d") {
-          doe = md + "d " + mh + "h " + mm + "m " + ms + "s";
+          doe = adsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
         } else {
-         doe = mw + "w " + md + "d " + mh + "h " + mm + "m " + ms + "s";
+         doe = adsp + mw + wdsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
         }
       } else {
         //Message based on mode
@@ -224,9 +230,7 @@ class SCWCountdown extends HTMLElement {
         //Runs function after countdown if in "countdown" mode
         if (element.hasAttribute("end-function") && mode !== "uf" && mode !== "tb") {
           endf = Function(element.getAttribute("end-function"));
-          if (typeof endf === "function") {
-            endf()
-          }
+          endf()
         }
       }
       //Puts text into HTML
@@ -367,12 +371,8 @@ class SCWTime2Dec extends HTMLElement {
       mt = ht % (864 * 100);
       s = Math.floor(mt / 864);
       //Adds 0 to the front if less than 10
-      if (m < 10) {
-        m = "0" + m
-      }
-      if (s < 10) {
-        s = "0" + s
-      }
+      m = m.toString().padStart(2, "0")
+      s = s.toString().padStart(2, "0")
       //Puts text into HTML
       element.innerHTML = dd + " " + "0" + h + ":" + m + ":" + s;
     }
