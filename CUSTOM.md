@@ -1,6 +1,6 @@
 # Release
-The latest release version of scw-custom.lib.js is v1.1.0<br>
-This version is based on scw.lib.js v3.6.0<br>
+The latest release version of scw-custom.lib.js is v1.2.0<br>
+This version is based on scw.lib.js v3.7.0<br>
 **If you are looking for information on scw.lib.js, go to [README.md](README.md).**
 # How to add scw-custom.lib.js to your HTML file
 If you want to use a hosted version from the web, paste the following code into your ```<head>``` tag:
