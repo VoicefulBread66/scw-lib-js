@@ -1,6 +1,6 @@
-/*scw.lib.js v3.6.0
+/*scw.lib.js v3.7.0
 Made by VoicefulBread66, 2019-2023*/
-function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
+function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h, i) {
     if (a === undefined) {
       //If no element id, stop program
       console.log("You did not specify an element id for the program.");
@@ -20,7 +20,18 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
         }
         if (c !== "uf" && c !== "dt") {
           c = new Date(c).getTime() + offset;
+          if (b > c) {[b, c] = [c, b]}
           f = undefined;
+        }
+        //Setting the variables for display output
+        var adsp = "", wdsp = "w ", ddsp = "d ", hdsp = "h ", mdsp = "m ", sdsp = "s"
+        if (typeof i === "object" && Array.isArray(i) === false) {
+          if (i.a !== undefined) {adsp = i.a.toString()}
+          if (i.w !== undefined) {wdsp = i.w.toString()}
+          if (i.d !== undefined) {ddsp = i.d.toString()}
+          if (i.h !== undefined) {hdsp = i.h.toString()}
+          if (i.m !== undefined) {mdsp = i.m.toString()}
+          if (i.s !== undefined) {sdsp = i.s.toString()}
         }
         //Variable defining for normal time
         var now, diff, w, wt, d, dt, ho, ht, m, mt, s, norm, interval, endf;
@@ -69,18 +80,18 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
            s = Math.floor(mt / 1000);
           }
            //Checks if difference is greater than or equal to 0ms
-           if (diff >= 0) {
+           if (diff >= 0 || (diff < 0 && f === false)) {
              //Message based on mode defined in 'e'
-             if (e === "s" ) {
-               doe = s + "s"
+             if (e === "s") {
+               doe = adsp + s + sdsp
              } else if (e === "m") {
-               doe = m + "m " + s + "s";
+               doe = adsp + m + mdsp + s + sdsp;
              } else if (e === "h") {
-               doe = ho + "h " + m + "m " + s + "s";
+               doe = adsp + ho + hdsp + m + mdsp + s + sdsp;
              } else if (e === "d") {
-               doe = d + "d " + ho + "h " + m + "m " + s + "s";
+               doe = adsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
              } else {
-              doe = w + "w " + d + "d " + ho + "h " + m + "m " + s + "s";
+               doe = adsp + w + wdsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
              }
            } else {
              //Message based on mode defined in 'c'
@@ -101,9 +112,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
              //Runs function after countdown if in "countdown" mode
             if (h !== undefined && c === "dt") {
               endf = Function(h);
-              if (typeof endf === "function") {
-                endf()
-              }
+              endf()
             }
            }
            //Puts text into HTML
@@ -155,18 +164,18 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
            ms = Math.floor(mmt / 864);
           }
            //Checks if difference is greater than or equal to 0ms
-           if (diff >= 0) {
+           if (diff >= 0 || (diff < 0 && f === false)) {
              //Message based on mode defined in 'e'
              if (e === "s") {
-               doe = ms + "s"
+               doe = adsp + ms + sdsp
              } else if (e === "m") {
-               doe = mm + "m " + ms + "s";
+               doe = adsp + mm + mdsp + ms + sdsp;
              } else if (e === "h") {
-               doe = mh + "h " + mm + "m " + ms + "s";
+               doe = adsp + mh + hdsp + mm + mdsp + ms + sdsp;
              } else if (e === "d") {
-               doe = md + "d " + mh + "h " + mm + "m " + ms + "s";
+               doe = adsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
              } else {
-              doe = mw + "w " + md + "d " + mh + "h " + mm + "m " + ms + "s";
+               doe = adsp + mw + wdsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
              }
            } else {
              //Message based on mode
@@ -187,9 +196,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
              //Runs function after countdown if in "countdown" mode
             if (h !== undefined && c === "dt") {
               endf = Function(h);
-              if (typeof endf === "function") {
-                endf()
-              }
+              endf()
             }
            }
            //Puts text into HTML
@@ -209,19 +216,19 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h) {
       }
 }
 //To retain backwards compatibility
-function cdww (a, b, c = "dt", d = "n", f, g = true, h) {
-  countdown(a, b, c, d, "d", f, g, h)
+function cdww (a, b, c = "dt", d = "n", f, g = true, h, i) {
+  countdown(a, b, c, d, "d", f, g, h, i)
 }
-function countdown_sec (a, b, c = "dt", d = "n", f, g = true, h) {
-  countdown(a, b, c, d, "s", f, g, h);
+function countdown_sec (a, b, c = "dt", d = "n", f, g = true, h, i) {
+  countdown(a, b, c, d, "s", f, g, h, i);
 }
-function countdown_m (a, b, c = "dt", d = "n", f, g = true, h) {
-  countdown(a, b, c, d, "m", f, g, h)
+function countdown_m (a, b, c = "dt", d = "n", f, g = true, h, i) {
+  countdown(a, b, c, d, "m", f, g, h, i)
 }
-function countdown_h (a, b, c = "dt", d = "n", f, g = true, h) {
-  countdown(a, b, c, d, "h", f, g, h)
+function countdown_h (a, b, c = "dt", d = "n", f, g = true, h, i) {
+  countdown(a, b, c, d, "h", f, g, h, i)
 }
-function timebtw (a, b, c, d = "uf", e = "n", f = "w") {
+function timebtw (a, b, c, d = "uf", e = "n", f = "w", i) {
   if (b === undefined) {
     b = (new Date().getFullYear()).toString() + "-01-01T00:00Z";
   }
@@ -229,15 +236,15 @@ function timebtw (a, b, c, d = "uf", e = "n", f = "w") {
     c = (new Date().getFullYear() + 1).toString() + "-01-01T00:00Z";
   }
   if (d === "dt") {
-    countdown(a, c, b, e, f)
+    countdown(a, c, b, e, f, undefined, true, undefined, i)
   } else {
-    countdown(a, b, c, e, f)
+    countdown(a, b, c, e, f, undefined, true, undefined, i)
   }
 }
 //To allow the function to be run without using every argument
-function count_down({a, b, c = "dt", d = "n", e = "w", f, g = false, h}) {
+function count_down({a, b, c = "dt", d = "n", e = "w", f, g = false, h, i}) {
   if (c !== "dt" && c !== "uf") {g = true}
-  countdown(a, b, c, d, e, f, g, h)
+  countdown(a, b, c, d, e, f, g, h, i)
 }
 function generate(a, b = "16_16") {
   let stateCheck = setInterval(() => {
@@ -296,7 +303,7 @@ function hex64_16(a) {
 function pswgen(a) {
   generate(a, "psw")
 }
-function time2dec(a, b, c) {
+function time2dec(a, b = "default", c) {
   let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(stateCheck);
@@ -306,11 +313,8 @@ function time2dec(a, b, c) {
     return
   } else {
     var d, e, dd, date, tsds, h, ht, m, mt, s;
-    if (b === undefined) {
+    if (b === "default") {
       //Defines b if no value provided in parameter
-      b = new Date().getTimezoneOffset() * -1 * 60 * 1000;
-    } else if (b === "default") {
-      //Defines b if b parameter is "default"
       b = new Date().getTimezoneOffset() * -1 * 60 * 1000;
     } else {
       //Defines b if b parameter is not "default"
@@ -376,7 +380,7 @@ function gen_no(a, b = 0, c = 1000) {
 				document.getElementById(a).innerHTML = Math.round(Math.random() * (c - b)) + b
 			} else {
 				document.getElementById(a).innerHTML = Math.round(Math.random() * (b - c)) + c
-        console.log("The values of b and c in scw-generate were swapped as your value of b was greater than your value for c.")
+        console.log("The values of b and c in the gen_no() function were swapped as your value of b was greater than your value for c.")
 			}
 		}
 	}}, 100)}
