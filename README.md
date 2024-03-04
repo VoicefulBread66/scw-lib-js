@@ -14,7 +14,7 @@ The following is an example of a HTML file utilizing scw.lib.js:
 <html>
 <head>
 <title>scw.lib.js</title>
-<script src="https://scwco.cf/scripts/scw.lib.min.js"></script>
+<script src="https://scwco.replit.app/scripts/scw.lib.min.js"></script>
 <script>
 countdown("A")
 </script>
