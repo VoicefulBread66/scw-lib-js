@@ -3,7 +3,7 @@ The latest release version of scw.lib.js is v3.7.0.<br>
 **Note: If you are looking for information on scw-custom.lib.js, go to [CUSTOM.md](CUSTOM.md).**
 # How to add scw.lib.js to your HTML file
 If you want to use a hosted version from the web, paste the following code into your ```<head>``` tag:
-```<script src="https://scwco.cf/scripts/scw.lib.min.js"></script>```
+```<script src="https://scwco.replit.app/scripts/scw.lib.min.js"></script>```
 If you want to use a local version, you can download the script off Github (both minified and unminified versions are available) and link it using a similar ```<script>```
 ### Very important note: Do NOT use ```async``` in the script tag linking to this script. scw.lib.js sometimes does not function properly with ```async```.
 # How to type scw.lib.js code
