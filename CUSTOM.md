@@ -4,7 +4,7 @@ This version is based on scw.lib.js v3.7.0<br>
 **If you are looking for information on scw.lib.js, go to [README.md](README.md).**
 # How to add scw-custom.lib.js to your HTML file
 If you want to use a hosted version from the web, paste the following code into your ```<head>``` tag:
-```<script src="https://scwco.cf/scripts/scw-custom.lib.min.js"></script>```
+```<script src="https://scwco.replit.app/scripts/scw-custom.lib.min.js"></script>```
 If you want to use a local version, you can download the script off Github from the [releases page](releases) (both minified and unminified versions are available) and link it using a similar ```<script>```
 ### Very important note: Do NOT use ```async``` in the script tag linking to this script. scw-custom.lib.js sometimes does not function properly with ```async```.
 # How to type scw.lib.js code
@@ -15,7 +15,7 @@ The following is an example of a HTML file utilizing scw-custom.lib.js:
 <html>
 <head>
 <title>scw-custom.lib.js</title>
-<script src="https://scwco.cf/scripts/scw-custom.lib.min.js"></script>
+<script src="https://scwco.replit.app/scripts/scw-custom.lib.min.js"></script>
 </head>
 <body>
 <scw-countdown></scw-countdown>
