@@ -1,5 +1,5 @@
 # Release
-The latest release version of scw-custom.lib.js is v1.2.0<br>
+The latest release version of scw-custom.lib.js is v1.2.1<br>
 This version is based on scw.lib.js v3.7.0<br>
 **If you are looking for information on scw.lib.js, go to [README.md](README.md).**
 # How to add scw-custom.lib.js to your HTML file
@@ -25,5 +25,4 @@ The following is an example of a HTML file utilizing scw-custom.lib.js:
 # More information
 More information on scw-custom.lib.js is available in the [wiki](../../wiki)!
 # Creator
-scw-custom.lib.js has been developed by VoicefulBread66 since 2022.<br>
-However, it is based off scw.lib.js, which has been developed by VoicefulBread66 since 2019.
+scw-custom.lib.js has been developed by VoicefulBread66 since 2022, and is based on scw.lib.js, developed by VoicefulBread66 since 2019.
