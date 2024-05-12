@@ -1,6 +1,6 @@
-/*scw-custom.lib.js v1.2.0
+/*scw-custom.lib.js v1.2.1
 scw.lib.js v3.7.0
-Made by VoicefulBread66, 2019-2023*/
+Made by VoicefulBread66, 2019-2024*/
 let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(stateCheck);
@@ -104,7 +104,7 @@ class SCWCountdown extends HTMLElement {
         s = Math.floor(mt / 1000);
       }
        //Checks if difference is greater than or equal to 0ms
-      if (diff >= 0 || (diff < 0 && f === false)) {
+      if (diff >= 0) {
         //Message based on mode defined in 'display'
         if (display === "s") {
           doe = adsp + s + sdsp;
@@ -193,7 +193,7 @@ class SCWCountdown extends HTMLElement {
         ms = Math.floor(mmt / 864);
       }
       //Checks if difference is greater than or equal to 0ms
-      if (diff >= 0 || (diff < 0 && f === false)) {
+      if (diff >= 0) {
         //Message based on mode defined in 'display'
         if (display === "s") {
           doe = adsp + ms + sdsp;
