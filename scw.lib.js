@@ -1,5 +1,5 @@
-/*scw.lib.js v3.7.0
-Made by VoicefulBread66, 2019-2023*/
+/*scw.lib.js v3.8.0
+Made by VoicefulBread66, 2019-2024*/
 function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h, i) {
     if (a === undefined) {
       //If no element id, stop program
@@ -13,7 +13,7 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h, i) {
           //Defines variable b with default value if user didnt put in input
             b = new Date((d1.getFullYear() + 1).toString() + "-01-01T00:00Z").getTime() + offset;
         } else if (b === undefined && c === "uf") {
-          b = new Date((d1.getFullYear()).toString() + "-01-01T00:00Z").getTime() + offset;
+            b = new Date((d1.getFullYear()).toString() + "-01-01T00:00Z").getTime() + offset;
         } else {
           //if user puts in input, converts it to miliseconds
             b = new Date(b).getTime() + offset;
@@ -33,94 +33,91 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h, i) {
           if (i.m !== undefined) {mdsp = i.m.toString()}
           if (i.s !== undefined) {sdsp = i.s.toString()}
         }
-        //Variable defining for normal time
-        var now, diff, w, wt, d, dt, ho, ht, m, mt, s, norm, interval, endf;
+        if (typeof e === "string") {
+          if (e === "d") {
+            e = ["d", "h", "m", "s"]
+	  } else if (e === "h") {
+	    e = ["h", "m", "s"]
+	  } else if (e === "m") {
+	    e = ["m", "s"]
+	  } else if (e === "s") {
+	    e = ["s"]
+	  } else {
+	    e = ["w", "d", "h", "m", "s"]
+	  }
+        }
+	if (typeof e !== "string" && Array.isArray(e) === false) {
+          e = ["w", "d", "h", "m", "s"]
+	}
+        //Variable defining for calculation operations
+        var now, diff, subdiff, norm, interval, endf, endresult;
         //Defines the normal time function to be repeated with setInterval()
         norm = function () {
           //Defines the current time
           now = new Date().getTime();
           //Uses different settings for different modes
           if (c === "uf") {
-            diff = now - b;
+            diff = now - b
           } else if (c === "dt") {
-            diff = b - now;
+            diff = b - now
           } else {
-            diff = c - b;
+            diff = c - b
           }
           //Calculations, based on what is specified in 'e'
-          if (e === "s") {
-            s = Math.floor(diff / 1000);
-          } else if (e === "m") {
-            m = Math.floor(diff/ (1000 * 60));
-            mt = diff % (1000 * 60)
-            s = Math.floor(mt / 1000);
-          } else if (e === "h") {
-            ho = Math.floor(diff / (1000 * 60 * 60));
-            ht = diff % (1000 * 60 * 60);
-            m = Math.floor(ht / (1000 * 60));
-            mt = ht % (1000 * 60)
-            s = Math.floor(mt / 1000);
-          } else if (e === "d") {
-            d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            dt = diff % (1000 * 60 * 60 * 24);
-            ho = Math.floor(dt / (1000 * 60 * 60));
-            ht = dt % (1000 * 60 * 60);
-            m = Math.floor(ht / (1000 * 60));
-            mt = ht % (1000 * 60);
-            s = Math.floor(mt / 1000);
-          } else {
-           w = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-           wt = diff % (1000 * 60 * 60 * 24 * 7);
-           d = Math.floor(wt / (1000 * 60 * 60 * 24));
-           dt = wt % (1000 * 60 * 60 * 24);
-           ho = Math.floor(dt / (1000 * 60 * 60));
-           ht = dt % (1000 * 60 * 60);
-           m = Math.floor(ht / (1000 * 60));
-           mt = ht % (1000 * 60);
-           s = Math.floor(mt / 1000);
-          }
-           //Checks if difference is greater than or equal to 0ms
-           if (diff >= 0 || (diff < 0 && f === false)) {
-             //Message based on mode defined in 'e'
-             if (e === "s") {
-               doe = adsp + s + sdsp
-             } else if (e === "m") {
-               doe = adsp + m + mdsp + s + sdsp;
-             } else if (e === "h") {
-               doe = adsp + ho + hdsp + m + mdsp + s + sdsp;
-             } else if (e === "d") {
-               doe = adsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
-             } else {
-               doe = adsp + w + wdsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
-             }
-           } else {
-             //Message based on mode defined in 'c'
-             if (f === undefined) {
-              if (c === "uf") {
-                doe = "The time at which the timer starts counting up hasn't even started yet!";
+	  subdiff = diff
+	  endresult = adsp
+          if (e.includes("w")) {
+	    endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24 * 7)).toString()
+	    subdiff = subdiff % (1000 * 60 * 60 * 24 * 7)
+	    endresult += wdsp
+	  }
+          if (e.includes("d")) {
+	    endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24)).toString()
+	    subdiff = subdiff % (1000 * 60 * 60 * 24)
+	    endresult += ddsp
+	  }
+	  if (e.includes("h")) {
+	    endresult += Math.floor(subdiff / (1000 * 60 * 60)).toString()
+	    subdiff = subdiff % (1000 * 60 * 60)
+	    endresult += hdsp
+	  }
+	  if (e.includes("m")) {
+	    endresult += Math.floor(subdiff / (1000 * 60)).toString()
+	    subdiff = subdiff % (1000 * 60)
+	    endresult += mdsp
+	  }
+	  if (e.includes("s")) {
+	    endresult += Math.floor(subdiff / 1000).toString()
+	    endresult += sdsp
+	  }
+          if (diff < 0) {
+	    //Message based on mode defined in 'c'
+            if (f === undefined) {
+	      if (c === "uf") {
+                endresult = "The time at which the timer starts counting up hasn't even started yet!";
               } else if (c === "dt") {
-                doe = "The time this countdown is counting down to has come";
+                endresult = "The time this countdown is counting down to has come";
                 clearInterval(interval);
               } else {
-                doe = "NaN"
+                endresult = "NaN"
                 console.log("Check your values in b and c.")
               }
-             } else {
-              doe = f
+            } else {
+              endresult = f
               if (c === "dt") {clearInterval(interval)}
              }
-             //Runs function after countdown if in "countdown" mode
+            //Runs function after countdown if in "countdown" mode
             if (h !== undefined && c === "dt") {
               endf = Function(h);
               endf()
             }
-           }
-           //Puts text into HTML
-           document.getElementById(a).innerHTML = doe;
+          }
+          //Puts text into HTML
+          if (document.getElementById(a).innerHTML != endresult) {
+            document.getElementById(a).innerHTML = endresult;
+	  }
         };
-        //Variable defining for decimal time
-        var mw, mwt, md, mdt, mh, mht, mm, mmt, ms, decimal;
-        decimal = function () {
+        var decimal = function () {
           //Defines the current time
           now = new Date().getTime();
           //Uses different settings for different modes
@@ -132,88 +129,71 @@ function countdown (a, b, c = "dt", d = "n", e = "w", f, g = true, h, i) {
             diff = c - b
           }
           //Calculations, based on what is specified in 'e'
-          if (e === "s") {
-            ms = Math.floor(diff / 864);
-          } else if (e === "m") {
-            mm = Math.floor(diff / (864 * 100));
-            mmt = diff % (864 * 100);
-            ms = Math.floor(mmt / 864);
-          } else if (e === "h") {
-            mh = Math.floor(diff / (864 * 100 * 100));
-            mht = diff % (864 * 100 * 100);
-            mm = Math.floor(mht / (864 * 100));
-            mmt = mht % (864 * 100);
-            ms = Math.floor(mmt / 864);
-          } else if (e === "d") {
-            md = Math.floor(diff / (1000 * 60 * 60 * 24));
-            mdt = diff % (1000 * 60 * 60 * 24);
-            mh = Math.floor(mdt / (864 * 100 * 100));
-            mht = mdt % (864 * 100 * 100);
-            mm = Math.floor(mht / (864 * 100));
-            mmt = mht % (864 * 100);
-            ms = Math.floor(mmt / 864);
-          } else {
-           mw = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-           mwt = diff % (1000 * 60 * 60 * 24 * 7);
-           md = Math.floor(mwt / (1000 * 60 * 60 * 24));
-           mdt = mwt % (1000 * 60 * 60 * 24);
-           mh = Math.floor(mdt / (864 * 100 * 100));
-           mht = mdt % (864 * 100 * 100);
-           mm = Math.floor(mht / (864 * 100));
-           mmt = mht % (864 * 100);
-           ms = Math.floor(mmt / 864);
-          }
-           //Checks if difference is greater than or equal to 0ms
-           if (diff >= 0 || (diff < 0 && f === false)) {
-             //Message based on mode defined in 'e'
-             if (e === "s") {
-               doe = adsp + ms + sdsp
-             } else if (e === "m") {
-               doe = adsp + mm + mdsp + ms + sdsp;
-             } else if (e === "h") {
-               doe = adsp + mh + hdsp + mm + mdsp + ms + sdsp;
-             } else if (e === "d") {
-               doe = adsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
-             } else {
-               doe = adsp + mw + wdsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
-             }
-           } else {
-             //Message based on mode
-             if (f === undefined) {
-              if (c === "uf") {
-                doe = "The time at which the timer starts counting up hasn't even started yet!";
+          subdiff = diff
+	  endresult = adsp
+          if (e.includes("w")) {
+	    endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24 * 7)).toString()
+	    subdiff = subdiff % (1000 * 60 * 60 * 24 * 7)
+	    endresult += wdsp
+	  }
+          if (e.includes("d")) {
+	    endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24)).toString()
+	    subdiff = subdiff % (1000 * 60 * 60 * 24)
+	    endresult += ddsp
+	  }
+	  if (e.includes("h")) {
+	    endresult += Math.floor(subdiff / (864 * 100 * 100)).toString()
+	    subdiff = subdiff % (864 * 100 * 100)
+	    endresult += hdsp
+	  }
+	  if (e.includes("m")) {
+	    endresult += Math.floor(subdiff / (864 * 100)).toString()
+	    subdiff = subdiff % (864 * 100)
+	    endresult += mdsp
+	  }
+	  if (e.includes("s")) {
+	    endresult += Math.floor(subdiff / 864).toString()
+	    endresult += sdsp
+	  }
+          if (diff < 0) {
+	    //Message based on mode defined in 'c'
+            if (f === undefined) {
+	      if (c === "uf") {
+                endresult = "The time at which the timer starts counting up hasn't even started yet!";
               } else if (c === "dt") {
-                doe = "The time this countdown is counting down to has come";
+                endresult = "The time this countdown is counting down to has come";
                 clearInterval(interval);
               } else {
-                doe = "NaN"
+                endresult = "NaN"
                 console.log("Check your values in b and c.")
               }
-             } else {
-               doe = f;
-               if (c === "dt") {clearInterval(interval)}
+            } else {
+              endresult = f
+              if (c === "dt") {clearInterval(interval)}
              }
-             //Runs function after countdown if in "countdown" mode
+            //Runs function after countdown if in "countdown" mode
             if (h !== undefined && c === "dt") {
               endf = Function(h);
               endf()
             }
-           }
-           //Puts text into HTML
-           document.getElementById(a).innerHTML = doe;
-          };
-        }
-        //Sets an interval, depending on parameter d
-        if (d === "d") {
-          interval = setInterval(decimal, 864);
-        } else {
-          interval = setInterval(norm, 1000)
-        }
-        if (c !== "uf" && c !== "dt") {
-        setTimeout(function() {
-          clearInterval(interval)
-        }, 2592)
-      }
+          }
+          //Puts text into HTML
+          if (document.getElementById(a).innerHTML != endresult) {
+            document.getElementById(a).innerHTML = endresult;
+	  }
+        };
+    }
+    //Sets an interval, depending on parameter d
+    if (d === "d") {
+      interval = setInterval(decimal, 864);
+    } else {
+      interval = setInterval(norm, 1000)
+    }
+    if (c !== "uf" && c !== "dt") {
+    	setTimeout(function() {
+        clearInterval(interval)
+      }, 2592)
+    }
 }
 //To retain backwards compatibility
 function cdww (a, b, c = "dt", d = "n", f, g = true, h, i) {
@@ -347,12 +327,8 @@ function time2dec(a, b = "default", c) {
       mt = ht % (864 * 100);
       s = Math.floor(mt / 864);
       //Adds 0 to the front if less than 10
-      if (m < 10) {
-        m = "0" + m
-      }
-      if (s < 10) {
-        s = "0" + s
-      }
+      m = m.toString().padStart(2, "0")
+      s = s.toString().padStart(2, "0")
       //Puts text into HTML
       document.getElementById(a).innerHTML = dd + " " + "0" + h + ":" + m + ":" + s;
     }
@@ -367,20 +343,20 @@ function time2dec_c(a, b, c) {
   time2dec(a, b, c);
 }
 function gen_no(a, b = 0, c = 1000) {
-	let stateCheck = setInterval(() => {
+  let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
     clearInterval(stateCheck);
-		if (a === undefined) {
-			console.log("You did not specify an element id for the program");
+    if (a === undefined) {
+      console.log("You did not specify an element id for the program");
       return
-		} else {
+    } else {
       b = parseInt(b);
       c = parseInt(c)
-			if (c > b) {
-				document.getElementById(a).innerHTML = Math.round(Math.random() * (c - b)) + b
-			} else {
-				document.getElementById(a).innerHTML = Math.round(Math.random() * (b - c)) + c
+      if (c > b) {
+	document.getElementById(a).innerHTML = Math.round(Math.random() * (c - b)) + b
+      } else {
+        document.getElementById(a).innerHTML = Math.round(Math.random() * (b - c)) + c
         console.log("The values of b and c in the gen_no() function were swapped as your value of b was greater than your value for c.")
-			}
-		}
-	}}, 100)}
+      }
+    }
+}}, 100)}
