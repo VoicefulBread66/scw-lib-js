@@ -1,5 +1,5 @@
-/*scw-custom.lib.js v1.2.1
-scw.lib.js v3.7.0
+/*scw-custom.lib.js v1.3.0
+scw.lib.js v3.8.0
 Made by VoicefulBread66, 2019-2024*/
 let stateCheck = setInterval(() => {
   if (document.readyState === 'complete') {
@@ -19,11 +19,11 @@ class SCWCountdown extends HTMLElement {
       } else {
         //Default time based on "uf"/"dt"/"tb"
         if (mode === "uf") {
-          time = new Date((d1.getFullYear()).toString() + "-01-01T00:00Z").getTime()
-          element.setAttribute("time", (d1.getFullYear()).toString() + "-01-01T00:00Z")
+          time = new Date((d1.getFullYear()).toString() + "-01-01T00:00").getTime()
+          element.setAttribute("time", (d1.getFullYear()).toString() + "-01-01T00:00")
         } else {
-          time = new Date((d1.getFullYear() + 1).toString() + "-01-01T00:00Z").getTime()
-          element.setAttribute("time", (d1.getFullYear() + 1).toString() + "-01-01T00:00Z")
+          time = new Date((d1.getFullYear() + 1).toString() + "-01-01T00:00").getTime()
+          element.setAttribute("time", (d1.getFullYear() + 1).toString() + "-01-01T00:00")
         }
       }
       if (element.hasAttribute("mode") === false) {
@@ -38,27 +38,44 @@ class SCWCountdown extends HTMLElement {
       if (element.hasAttribute("end")) {
         end = new Date(element.getAttribute("end")).getTime()
       } else {
-        end = new Date("2023-01-01T00:00").getTime()
-        element.setAttribute("end", "2023-01-01T00:00")
+        end = new Date((d1.getFullYear() + 1).toString() + "-01-01T00:00").getTime()
+        element.setAttribute("end", (d1.getFullYear() + 1).toString() + "-01-01T00:00")
       }
       if (start > end) {[start, end] = [end, start]}
       if (element.hasAttribute("display")) {
         display = element.getAttribute("display")
+        display = display.replaceAll("'", "\"")
+        try {
+          display = JSON.parse(display)
+        } catch {
+          if (display === "d") {
+            display = ["d", "h", "m", "s"]
+	  } else if (display === "h") {
+            display = ["h", "m", "s"]
+	  } else if (display === "m") {
+            display = ["m", "s"]
+	  } else if (display === "s") {
+            display = ["s"]
+	  } else {
+            display = ["w", "d", "h", "m", "s"]
+          }
+        }
       } else {
         element.setAttribute("display", "w")
+        display = ["w", "d", "h", "m", "s"]
       }
       adsp = "", wdsp = "w ", ddsp = "d ", hdsp = "h ", mdsp = "m ", sdsp = "s"
-      if (element.hasAttribute("disp-a")) {adsp = element.getAttribute("disp-a")}
-      if (element.hasAttribute("disp-w")) {wdsp = element.getAttribute("disp-w")}
-      if (element.hasAttribute("disp-d")) {ddsp = element.getAttribute("disp-d")}
-      if (element.hasAttribute("disp-h")) {hdsp = element.getAttribute("disp-h")}
-      if (element.hasAttribute("disp-m")) {mdsp = element.getAttribute("disp-m")}
-      if (element.hasAttribute("disp-s")) {sdsp = element.getAttribute("disp-s")}
+      if (element.hasAttribute("disp-a") && element.getAttribute("disp-a") !== undefined) {adsp = element.getAttribute("disp-a")}
+      if (element.hasAttribute("disp-w") && element.getAttribute("disp-w") !== undefined) {wdsp = element.getAttribute("disp-w")}
+      if (element.hasAttribute("disp-d") && element.getAttribute("disp-d") !== undefined) {ddsp = element.getAttribute("disp-d")}
+      if (element.hasAttribute("disp-h") && element.getAttribute("disp-h") !== undefined) {hdsp = element.getAttribute("disp-h")}
+      if (element.hasAttribute("disp-m") && element.getAttribute("disp-m") !== undefined) {mdsp = element.getAttribute("disp-m")}
+      if (element.hasAttribute("disp-s") && element.getAttribute("disp-s") !== undefined) {sdsp = element.getAttribute("disp-s")}
     }
     Params()
     if (pe === true) {setInterval(Params, 2792)}
     //Variable defining for normal time
-    var now, diff, w, wt, d, dt, ho, ht, m, mt, s, norm, doe;
+    var now, diff, subdiff, norm, endresult;
     //Defines the normal time function to be repeated with setInterval()
     norm = function () {
       //Defines the current time
@@ -72,69 +89,50 @@ class SCWCountdown extends HTMLElement {
         diff = time - now;
       }
       //Calculations, based on what is specified in 'display'
-      if (display === "s") {
-        s = Math.floor(diff / 1000);
-      } else if (display === "m") {
-        m = Math.floor(diff/ (1000 * 60));
-        mt = diff % (1000 * 60)
-        s = Math.floor(mt / 1000);
-      } else if (display === "h") {
-        ho = Math.floor(diff / (1000 * 60 * 60));
-        ht = diff % (1000 * 60 * 60);
-        m = Math.floor(ht / (1000 * 60));
-        mt = ht % (1000 * 60)
-        s = Math.floor(mt / 1000);
-      } else if (display === "d") {
-        d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        dt = diff % (1000 * 60 * 60 * 24);
-        ho = Math.floor(dt / (1000 * 60 * 60));
-        ht = dt % (1000 * 60 * 60);
-        m = Math.floor(ht / (1000 * 60));
-        mt = ht % (1000 * 60);
-        s = Math.floor(mt / 1000);
-      } else {
-        w = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-        wt = diff % (1000 * 60 * 60 * 24 * 7);
-        d = Math.floor(wt / (1000 * 60 * 60 * 24));
-        dt = wt % (1000 * 60 * 60 * 24);
-        ho = Math.floor(dt / (1000 * 60 * 60));
-        ht = dt % (1000 * 60 * 60);
-        m = Math.floor(ht / (1000 * 60));
-        mt = ht % (1000 * 60);
-        s = Math.floor(mt / 1000);
+      subdiff = diff
+	    endresult = adsp
+      if (display.includes("w")) {
+        endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24 * 7)).toString()
+	subdiff = subdiff % (1000 * 60 * 60 * 24 * 7)
+	endresult += wdsp
       }
-       //Checks if difference is greater than or equal to 0ms
-      if (diff >= 0) {
-        //Message based on mode defined in 'display'
-        if (display === "s") {
-          doe = adsp + s + sdsp;
-        } else if (display === "m") {
-          doe = adsp + m + mdsp + s + sdsp;
-        } else if (display === "h") {
-          doe = adsp + ho + hdsp + m + mdsp + s + sdsp;
-        } else if (display === "d") {
-           doe = adsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
-        } else {
-          doe = adsp + w + wdsp + d + ddsp + ho + hdsp + m + mdsp + s + sdsp;
-        }
-      } else {
+      if (display.includes("d")) {
+	endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24)).toString()
+	subdiff = subdiff % (1000 * 60 * 60 * 24)
+	endresult += ddsp
+      }
+      if (display.includes("h")) {
+	endresult += Math.floor(subdiff / (1000 * 60 * 60)).toString()
+	subdiff = subdiff % (1000 * 60 * 60)
+	endresult += hdsp
+      }
+      if (display.includes("m")) {
+	endresult += Math.floor(subdiff / (1000 * 60)).toString()
+	subdiff = subdiff % (1000 * 60)
+	endresult += mdsp
+      }
+      if (display.includes("s")) {
+	endresult += Math.floor(subdiff / 1000).toString()
+	endresult += sdsp
+      }
+      if (diff < 0) {
         //Message based on mode defined in 'mode'
         if (element.hasAttribute("message")) {
           if (mode === "tb") {
-            doe = "NaN";
+            endresult = "NaN";
             console.log("Check your start and end values in scw-countdown.")
           } else {
-            doe = element.getAttribute("message")
+            endresult = element.getAttribute("message")
             if (pe === false && mode !== "uf") {clearInterval(interval)}
           }
         } else {
           if (mode === "uf") {
-            doe = "The time at which the timer starts counting up hasn't even started yet!";
+            endresult = "The time at which the timer starts counting up hasn't even started yet!";
           } else if (mode === "tb") {
-            doe = "NaN";
+            endresult = "NaN";
             console.log("Check your start and end values in scw-countdown.")
           } else {
-            doe = "The time this countdown is counting down to has come";
+            endresult = "The time this countdown is counting down to has come";
             if (pe === false) {clearInterval(interval)}
           }
         }
@@ -145,10 +143,12 @@ class SCWCountdown extends HTMLElement {
         }
       }
       //Puts text into HTML
-      element.innerHTML = doe;
+      if (element.innerHTML != endresult) {
+        element.innerHTML = endresult;
+      }
     };
     //Variable defining for decimal time
-    var mw, mwt, md, mdt, mh, mht, mm, mmt, ms, decimal;
+    var decimal;
     decimal = function () {
       //Defines the current time
       now = new Date().getTime();
@@ -161,69 +161,50 @@ class SCWCountdown extends HTMLElement {
         diff = time - now
       }
       //Calculations, based on what is specified in 'display'
-      if (display === "s") {
-        ms = Math.floor(diff / 864);
-      } else if (display === "m") {
-        mm = Math.floor(diff / (864 * 100));
-        mmt = diff % (864 * 100);
-        ms = Math.floor(mmt / 864);
-      } else if (display === "h") {
-        mh = Math.floor(diff / (864 * 100 * 100));
-        mht = diff % (864 * 100 * 100);
-        mm = Math.floor(mht / (864 * 100));
-        mmt = mht % (864 * 100);
-        ms = Math.floor(mmt / 864);
-      } else if (display === "d") {
-        md = Math.floor(diff / (1000 * 60 * 60 * 24));
-        mdt = diff % (1000 * 60 * 60 * 24);
-        mh = Math.floor(mdt / (864 * 100 * 100));
-        mht = mdt % (864 * 100 * 100);
-        mm = Math.floor(mht / (864 * 100));
-        mmt = mht % (864 * 100);
-        ms = Math.floor(mmt / 864);
-      } else {
-        mw = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-        mwt = diff % (1000 * 60 * 60 * 24 * 7);
-        md = Math.floor(mwt / (1000 * 60 * 60 * 24));
-        mdt = mwt % (1000 * 60 * 60 * 24);
-        mh = Math.floor(mdt / (864 * 100 * 100));
-        mht = mdt % (864 * 100 * 100);
-        mm = Math.floor(mht / (864 * 100));
-        mmt = mht % (864 * 100);
-        ms = Math.floor(mmt / 864);
+      subdiff = diff
+      endresult = adsp
+      if (display.includes("w")) {
+	endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24 * 7)).toString()
+	subdiff = subdiff % (1000 * 60 * 60 * 24 * 7)
+	endresult += wdsp
       }
-      //Checks if difference is greater than or equal to 0ms
-      if (diff >= 0) {
-        //Message based on mode defined in 'display'
-        if (display === "s") {
-          doe = adsp + ms + sdsp;
-        } else if (display === "m") {
-          doe = adsp + mm + mdsp + ms + sdsp;
-        } else if (display === "h") {
-          doe = adsp + mh + hdsp + mm + mdsp + ms + sdsp;
-        } else if (display === "d") {
-          doe = adsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
-        } else {
-         doe = adsp + mw + wdsp + md + ddsp + mh + hdsp + mm + mdsp + ms + sdsp;
-        }
-      } else {
+      if (display.includes("d")) {
+	endresult += Math.floor(subdiff / (1000 * 60 * 60 * 24)).toString()
+	subdiff = subdiff % (1000 * 60 * 60 * 24)
+	endresult += ddsp
+      }
+      if (display.includes("h")) {
+	endresult += Math.floor(subdiff / (864 * 100 * 100)).toString()
+	subdiff = subdiff % (864 * 100 * 100)
+	endresult += hdsp
+      }
+      if (display.includes("m")) {
+	endresult += Math.floor(subdiff / (864 * 100)).toString()
+	subdiff = subdiff % (864 * 100)
+	endresult += mdsp
+      }
+      if (display.includes("s")) {
+	endresult += Math.floor(subdiff / 864).toString()
+	endresult += sdsp
+      }
+      if (diff < 0) {
         //Message based on mode
         if (element.hasAttribute("message")) {
           if (mode === "tb") {
-            doe = "NaN";
+            endresult = "NaN";
             console.log("Check your start and end values in scw-countdown.");
           } else {
-            doe = element.getAttribute("message");
+            endresult = element.getAttribute("message");
             if (pe === false && mode !== "uf") {clearInterval(interval)}
           }
         } else {
           if (mode === "uf") {
-            doe = "The time at which the timer starts counting up hasn't even started yet!";
+            endresult = "The time at which the timer starts counting up hasn't even started yet!";
           } else if (mode === "tb") {
-            doe = "NaN";
+            endresult = "NaN";
             console.log("Check your start and end values in scw-countdown.");
           } else {
-            doe = "The time this countdown is counting down to has come";
+            endresult = "The time this countdown is counting down to has come";
             if (pe === false) {clearInterval(interval)}
           }
         }
@@ -234,7 +215,9 @@ class SCWCountdown extends HTMLElement {
         }
       }
       //Puts text into HTML
-      element.innerHTML = doe;
+      if (element.innerHTML != endresult) {
+        element.innerHTML = endresult;
+      }
     };
     if ((mode === "tb" && pe === true && decima === true) || (mode !== "tb" && decima === true)) {
       interval = setInterval(decimal, 864)
@@ -247,7 +230,7 @@ class SCWCountdown extends HTMLElement {
     }
   }
 }
-    window.customElements.define("scw-countdown", SCWCountdown);
+window.customElements.define("scw-countdown", SCWCountdown);
 //scw-generate
 class SCWGenerate extends HTMLElement {
   constructor() {
