@@ -2,7 +2,7 @@
 scw-custom.lib.js is a small JavaScript library containing custom HTML elements dealing with countdowns, count-ups, finding the time between two fixed times, random code/number generators, and converting time to decimall time. More information on scw-custom.lib.js is available in the [wiki](../../wiki).<br>
 **Note: If you are looking for information on scw-custom.lib.js, go to [README.md](README.md).**
 
-# Release
+# Version
 The latest release version of scw-custom.lib.js is v1.3.0, which is based on scw.lib.js v3.8.0.
 
 # How to add scw-custom.lib.js to your HTML file
