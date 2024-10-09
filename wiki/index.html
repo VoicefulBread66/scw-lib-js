@@ -7,7 +7,7 @@
       html {font-family: "Helvetica", sans-serif}
       h3 {text-decoration: underline}
       .center {text-align: center}
-      a {color: #3267ff; text-decoration: none}
+      a {color: #3267ff; text-decoration: none; padding: 2px}
       a:hover {background-color: #1045cc; color: white}
       #item-list {display: flex}
       .item-bottom {border-top: 1px solid #555555}
@@ -19,6 +19,9 @@
         .item-bottom {border-top: 1px solid #aaaaaa}
         .item {border: 2px solid #cccccc}
         .subtitle {color: #aaaaaa}
+      }
+      @media (width <= 600px) {
+        .item {flex-direction: row}
       }
     </style>
   </head>
