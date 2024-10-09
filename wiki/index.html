@@ -10,13 +10,13 @@
       a {color: #3267ff; text-decoration: none}
       a:hover {color: #1045cc}
       #item-list {display: flex}
-      .item-bottom {border-top: 1px solid #555555}
-      .item-bottom, .item-top {padding: 0px 2px}
-      .item {padding: 5px 2px; border: 2px solid #333333; border-radius: 4%; margin: 3px}
+      .item-body {border-top: 1px solid #555555}
+      .item-body , .item-top {padding: 0px 2px}
+      .item {padding: 5px 2px; border: 2px solid #333333; border-radius: 2%; margin: 3px}
       .subtitle {color: #555555}
       @media (prefers-color-scheme: dark) {
         html {background-color: black; color: white}
-        .item-bottom {border-top: 1px solid #aaaaaa}
+        .item-body {border-top: 1px solid #aaaaaa}
         .item {border: 2px solid #cccccc}
         .subtitle {color: #aaaaaa}
         a:hover {color: #5489ff}
@@ -30,7 +30,7 @@
     <h2 class="center">Welcome to the new scw.lib.js wiki!</h2>
     Do note that this page is still a work in progress. For the time being, use the <a href="https://github.com/VoicefulBread66/scw-lib-js/wiki">existing wiki</a> instead.
     <div class="center" id="item-list">
-      <div id="scroll-1" class="item">
+      <div class="item">
         <div class="item-top">
           <h3 class="center">Countdowns</h3>
           <p class="subtitle">Countdowns, count-ups and calculating the time between two different times.</p>
@@ -43,7 +43,16 @@
           -->
         </div>
       </div>
-      <div id="scroll-2" class="item">
+      <div class="item">
+        <div class="item-top">
+          <h3 class="center">Getting started</h3>
+          <p class="subtitle">Downloading the library and importing it into your HTML file.</p>
+        </div>
+        <div class="item-body">
+          <p><a href="">Getting started</a></p>
+        </div>
+      </div>
+      <div class="item">
         <div class="item-top">
           <h3 class="center">Random generators</h3>
           <p class="subtitle">Hexadecimal, base-64, passwords, YouTube video IDs, and numbers</p>
@@ -52,7 +61,7 @@
           <p><a href="https://github.com/VoicefulBread66/scw-lib-js/wiki/Random-code-number-generators">Docs</a></p>
         </div>
       </div>
-      <div id="scroll-3" class="item">
+      <div class="item">
         <div class="item-top">
           <h3 class="center">Time to Decimal</h3>
           <p class="subtitle">Converts the current time or a specified fixed time to decimal time</p>
