@@ -29,14 +29,18 @@
       document.addEventListener("DOMContentLoaded", function() {
         if (window.innerWidth > 600) {
           let tops = document.getElementsByClassName("item-top")
-          let max_height = 0
+          let subs = document.getElementsByClassName("subtitle")
+          let max_height = 0, margin = ""
           for (let i in tops) {
-            if (tops[i].offsetHeight > max_height) {max_height = tops[i].offsetHeight}
+            if (tops[i].offsetHeight > max_height) {
+              max_height = tops[i].offsetHeight
+              margin = window.getComputedStyle(subs[i]).margin
+            }
           }
           for (let j in tops) {
             if (!isNaN(j)) {
               tops[j].style.height = (max_height + 2).toString() + "px"
-              tops[j].style.padding = "0px 2px"
+              tops[j].style.margin = margin
             }
           }
         }
