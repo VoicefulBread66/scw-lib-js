@@ -34,7 +34,10 @@
             if (tops[i].offsetHeight > max_height) {max_height = tops[i].offsetHeight}
           }
           for (let j in tops) {
-            if (!isNaN(j)) {tops[j].style.height = max_height.toString() + "px"}
+            if (!isNaN(j)) {
+              tops[j].style.height = max_height.toString() + "px"
+              tops[j].style.padding = "0px 2px"
+            }
           }
         }
       })
