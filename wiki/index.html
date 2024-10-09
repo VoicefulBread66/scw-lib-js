@@ -27,13 +27,15 @@
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        let tops = document.getElementsByClassName("item-top")
-        let max_height = 0
-        for (let i in tops) {
-          if (tops[i].offsetHeight > max_height) {max_height = tops[i].offsetHeight}
-        }
-        for (let i in tops) {
-          tops[i].style.height = max_height
+        if (window.innerHeight > 600px) {
+          let tops = document.getElementsByClassName("item-top")
+          let max_height = 0
+          for (let i in tops) {
+            if (tops[i].offsetHeight > max_height) {max_height = tops[i].offsetHeight}
+          }
+          for (let i in tops) {
+            tops[i].style.height = max_height
+          }
         }
       }
     </script>
