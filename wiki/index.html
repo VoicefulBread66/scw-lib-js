@@ -34,6 +34,8 @@
             if (tops[i].offsetHeight > max_height) {max_height = tops[i].offsetHeight}
           }
           for (let j in tops) {
+            console.log(j)
+            console.log(tops[j])
             tops[j].style.height = max_height.toString() + "px"
           }
         }
