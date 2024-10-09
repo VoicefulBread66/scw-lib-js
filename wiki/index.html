@@ -6,13 +6,53 @@
     <style>
       html {font-family: "Helvetica", sans-serif}
       .center {text-align: center}
+      a {color: #3267ff}
+      a:hover {background-color: #1045cc; color: white}
+      #item-list {display: flex}
+      .item-top, .item-bottom {padding: 2px 5px}
+      .item-bottom {border-top: 1px solid grey}
+      .subtitle {color: grey}
       @media (prefers-color-scheme: dark) {
         html {background-color: black; color: white}
+        .subtitle {color: #222222}
       }
     </style>
   </head>
   <body>
     <h2 class="center">Welcome to the new scw.lib.js wiki!</h2>
     Do note that this page is still a work in progress. For the time being, use the <a href="https://github.com/VoicefulBread66/scw-lib-js/wiki">existing wiki</a> instead.
+    <div class="center" id="item-list">
+      <div id="scroll-1" class="item">
+        <div class="item-top">
+          <h3 class="center">Countdowns</h3>
+          <p class="subtitle">Countdowns, count-ups and calculating the time between two different times.</p>
+        </div>
+        <div class="item-body">
+          <p><a href="https://github.com/VoicefulBread66/scw-lib-js/wiki/Countdowns,-Count%E2%80%90ups-and-Time-Between">Docs</a></p>
+          <!--
+          <p><a href="">Introduction to countdowns</a></p>
+          <p><a href="">Customising your countdown</a></p>
+          -->
+        </div>
+      </div>
+      <div id="scroll-2" class="item">
+        <div class="item-top">
+          <h3 class="center">Random generators</h3>
+          <p class="subtitle">Hexadecimal, base-64, passwords, YouTube video IDs, and numbers</p>
+        </div>
+        <div class="item-body">
+          <p><a href="https://github.com/VoicefulBread66/scw-lib-js/wiki/Random-code-number-generators">Docs</a></p>
+        </div>
+      </div>
+      <div id="scroll-3" class="item">
+        <div class="item-top">
+          <h3 class="center">Time to Decimal</h3>
+          <p class="subtitle">Converts the current time or a specified fixed time to decimal time</p>
+        </div>
+        <div class="item-body">
+          <p><a href="https://github.com/VoicefulBread66/scw-lib-js/wiki/Time-to-Decimal">Docs</a></p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
