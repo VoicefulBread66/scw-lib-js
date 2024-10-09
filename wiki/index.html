@@ -7,21 +7,22 @@
       html {font-family: "Helvetica", sans-serif}
       h3 {text-decoration: underline}
       .center {text-align: center}
-      a {color: #3267ff; text-decoration: none; padding: 2px}
-      a:hover {background-color: #1045cc; color: white}
+      a {color: #3267ff; text-decoration: none}
+      a:hover {color: #1045cc}
       #item-list {display: flex}
       .item-bottom {border-top: 1px solid #555555}
       .item-bottom, .item-top {padding: 0px 2px}
-      .item {padding: 5px 2px; border: 2px solid #333333; border-radius: 15%; margin: 3px}
+      .item {padding: 5px 2px; border: 2px solid #333333; border-radius: 25%; margin: 3px}
       .subtitle {color: #555555}
       @media (prefers-color-scheme: dark) {
         html {background-color: black; color: white}
         .item-bottom {border-top: 1px solid #aaaaaa}
         .item {border: 2px solid #cccccc}
         .subtitle {color: #aaaaaa}
+        a:hover {color: #5489ff}
       }
       @media (width <= 600px) {
-        .item {flex-direction: row}
+        .item {flex-direction: column}
       }
     </style>
   </head>
