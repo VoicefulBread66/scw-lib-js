@@ -16,10 +16,13 @@
     <script>
       function CustomSwitch() {
         let script_type = document.querySelector("#script_type")
+        let custom_switch = document.querySelector("#custom_switch")
         if (script_type.innerText == "scw.lib.js") {
           script_type.innerText = "scw-custom.lib.js"
+          custom_switch.innerText = "See scw.lib.js instead"
         } else if (script_type.innerText == "scw-custom.lib.js") {
           script_type.innerText = "scw.lib.js"
+          custom_switch.innerText = "See scw-custom.lib.js instead"
         }
       }
     </script>
@@ -27,7 +30,7 @@
   <body>
     <p class="center">
       <span class="code header" id="script_type">scw.lib.js</span><br>
-      <button onclick="CustomSwitch()" id="custom-switch">Switch to scw-custom.lib.js</button>
+      <button onclick="CustomSwitch()" id="custom_switch">See scw-custom.lib.js instead</button>
     </p>
   </body>
 </html>
