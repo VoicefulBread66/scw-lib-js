@@ -8,14 +8,25 @@
       html {font-family: "Helvetica", sans-serif}
       .code {font-family: "Courier New", monospace}
       .center {text-align: center}
+      .header {font-size: 130%}
       @media (prefers-color-scheme: dark) {
         html {background-color: black; color: white}
       }
     </style>
+    <script>
+      function CustomSwitch() {
+        let script_type = document.querySelector("#script-type")
+        if (script_type.innerText == "scw.lib.js") {
+          script_type.innerText = "scw-custom.lib.js"
+        } else if (script_type.innerText == "scw-custom.lib.js") {
+          script_type.innerText = "scw.lib.js"
+        }
+      }
+    </script>
   </head>
   <body>
-    <p>
-      <span class="code">scw.lib.js</span><br>
+    <p class="center">
+      <span class="code header" id="script_type">scw.lib.js</span><br>
       <a onclick="CustomSwitch()" id="custom-switch">Switch to scw-custom.lib.js</a>
     </p>
   </body>
